@@ -27,7 +27,7 @@ while True:
     elif operador == '/':
         print(f'{num_1} / {num_2} = {num_1/num_2}')
     elif operador == '^':
-        print(f'{num_1} ** {num_2} = {num_1**num_2}')
+        print(f'{num_1} ^ {num_2} = {num_1**num_2}')
     sair = input("Quer sair?\n [s]im [n]ao: ").lower().startswith('s')
     if sair is True:
         break
