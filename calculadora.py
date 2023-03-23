@@ -7,6 +7,13 @@ Planos para o futuro:
 numero_1=0
 numero_2=0
 operador=''
+# tutorial= input("Deseja ver o Tutorial de como funciona a calculadora? ").lower()
+# while not (tutorial == "n" or tutorial =="s"):
+#     print("digite apenas n ou s.")
+#     tutorial= input("Deseja ver o Tutorial de como funciona a calculadora? ").lower()
+# tutorial=tutorial.startswith("s")
+# if tutorial is True:
+#     print("insira o tutorial aqui")
 while True:
     numero_1= input("Digite um numero: ")
     operador= input("Digite um operador (entre: +, -,*,/, ^): ")
