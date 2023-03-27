@@ -4,17 +4,23 @@ Planos para o futuro:
     2.Aceitar outros operadores como: log, sqrt, binomio de newtown,cos, sen,tg,cotg,cossec,tetração,e fatorial.
     3.Pedir mais ideias para usuários.
 '''
+
+continuar = True
+operadores_validos='+-/*^%'
 numero_1=0
 numero_2=0
 operador=''
-# tutorial= input("Deseja ver o Tutorial de como funciona a calculadora? ").lower()
-# while not (tutorial == "n" or tutorial =="s"):
-#     print("digite apenas n ou s.")
-#     tutorial= input("Deseja ver o Tutorial de como funciona a calculadora? ").lower()
-# tutorial=tutorial.startswith("s")
-# if tutorial is True:
-#     print("insira o tutorial aqui")
-while True:
+
+'''Apos planejar texto da calculadora, basta tirar os comentarios da seção.
+tutorial= input("Deseja ver o Tutorial de como funciona a calculadora? ").lower()
+while not (tutorial == "n" or tutorial =="s"):
+    print("digite apenas n ou s.")
+    tutorial= input("Deseja ver o Tutorial de como funciona a calculadora? ").lower()
+tutorial=tutorial.startswith("s")
+if tutorial is True:
+    print("insira o tutorial aqui")'''
+
+while continuar is True:
     numero_1= input("Digite um numero: ")
     operador= input("Digite um operador (entre: +, -,*,/, ^): ")
     numero_2= input("Digite outro numero: ")
@@ -23,7 +29,6 @@ while True:
         numero_1= input("Digite um numero: ")
         operador= input("Digite um operador: ")
         numero_2= input("Digite outro numero: ")
-    operadores_validos='+-/*^%'
     while operador not in operadores_validos:
         print("Tente novamente, o operador foi considerado invalido.")
         numero_1= input("Digite um numero: ")
@@ -45,4 +50,4 @@ while True:
         print(f'{num_1} % {num_2} = {num_1%num_2}')
     sair = input("Quer sair?\n [s]im [n]ao: ").lower().startswith('s')
     if sair is True:
-        break
+        continuar = False
