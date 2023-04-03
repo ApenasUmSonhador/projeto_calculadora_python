@@ -1,13 +1,13 @@
 '''
 Planos para o futuro:
-    1.Aceitar outros operadores como: log, sqrt, binomio de newtown e tetração.
+    1.Aceitar outros operadores como: log, sqrt e binomio de newtown.
     2.Pedir mais ideias para usuários.
 '''
 import math
 tutorial = True
 continuar = True
 operadores_1num= ['!','sen', 'cos', 'tg', 'cossec', 'sec', 'cotg']
-operadores_2num = ['+', '-','/','*','%','^']
+operadores_2num = ['+', '-','/','*','%','^', 'hiper']
 numero_1=0
 numero_2=0
 operador=''
@@ -81,6 +81,12 @@ while continuar is True:
                     print(f'{num_1} ^ {num_2} = {num_1**num_2}')
                 elif operador == '%':
                     print(f'{num_1} % {num_2} = {num_1%num_2}')
+                elif operador == 'hiper':
+                    num_2= int(num_2)
+                    indice = num_1
+                    for i in range(0,num_2):
+                        num_1= num_1**indice
+                    print(f'{numero_1} hiper {num_2} = {num_1}')
         else:
             print("Tente novamente, o operador foi considerado invalido.")
     sair = input("Deseja sair?\n [s]im [n]ao: ").strip().lower().startswith('s')
