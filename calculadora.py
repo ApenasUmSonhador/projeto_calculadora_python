@@ -14,11 +14,11 @@ numero_1 = 0; numero_2 = 0; operador=''
 
 #Conversor:
 #Escolha das Operações:
-conversoes = ['A', 'B',' C']
+conversoes = ['A', 'B',' C', "D"]
 #Lista com Bases que são aceitas.
 tipos_de_base = [2,8,10,16]
 #Inicializando bases
-binario = ""; octal = ""; decimal = ""; hexadecimal = ""; gray = ""; complementar_1 =""; complementar_2 ="" 
+binario = ""; octal = ""; decimal = ""; hexadecimal = ""; gray = ""; complementar_1 =""; complementar_2 =""; bcd=""
 
 
 #Declarando funções:
@@ -116,7 +116,6 @@ def operacao_2num(numero_1):#Responsável por realizar as operações com 2 núm
 #Responsável por converter Decimal -> Binário.            
 def decimal_para_binario(decimal):
     binario = ""
-
     while decimal > 0:
         if decimal % 2 == 1:
             binario = "1" + binario
@@ -263,6 +262,15 @@ def complementar_1_para_complementar_2(complementar_1):
     complementar_2 = complementar_2[::-1]
     return complementar_2
 
+#Responsável por converter Decimal -> BCD.
+def decimal_para_bcd(decimal):
+    bcd = ""
+    decimal = str(decimal)
+    for i in range(len(decimal)):
+        bcd = "0"*(4-i) + decimal_para_binario(int(decimal[i])) + bcd
+    bcd = bcd[::-1]
+    return bcd
+        
 #Tutorial:
 #Inicializando booleano que define se será ou não exibido o tutorial.
 tutorial = False 
@@ -342,7 +350,7 @@ while algoritmo is True:
             binario = ""; octal = ""; decimal = ""; hexadecimal = ""; gray = ""; complementar_1 =""; complementar_2 =""
 
             #Recebendo o que usuário deseja fazer:
-            acao =input("Qual ferramenta deseja utilizar? \n[A]Conversor de bases [B]Conversor para Gray [C]Conversor para Complementares").strip().lower()
+            acao =input("Qual ferramenta deseja utilizar? \n[A]Conversor de bases [B]Conversor para Gray [C]Conversor para Complementares [D]Conversor para BCD\n").strip().lower()
 
             #Conversor de bases:
             if acao == "a":
@@ -419,6 +427,52 @@ while algoritmo is True:
                 complementar_2 = complementar_1_para_complementar_2(complementar_1)
                 limpar()
                 print(f"Binário: {binario} \nSeu Complementar 1: {complementar_1} \nSeu Complementar 2: {complementar_2}")
+
+            #Conversor para BCD:
+            elif acao == "d":
+                base = int(input("Insira qual o número da base de entrada.\n[2] [8] [10] [16]: "))
+
+                #Entrada em base Decimal.
+                if base == 10:
+                    numero_entrada = input("Insira o número na base decimal:\n")
+                    decimal = int(numero_entrada)
+                    bcd = decimal_para_bcd(decimal)
+                    limpar()
+                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
+                    
+                #Entrada em base Binária.
+                elif base == 2:
+                    numero_entrada = input("Insira o número na base binaria:\n")
+                    binario = numero_entrada
+                    decimal = int(inario_para_decimal(binario))
+                    bcd = decimal_para_bcd(decimal)
+
+                    limpar()
+                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
+
+                #Entrada em base Octal.
+                elif base == 8:
+                    numero_entrada = input("Insira o número na base octal: \n")
+                    octal = numero_entrada
+                    decimal = int(octal_para_decimal(octal))
+                    bcd = decimal_para_bcd(decimal)
+                    
+                    limpar()
+                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
+                
+                #Entrada em base Hexadecimal.
+                elif base == 16:
+                    numero_entrada = input("Insira o número na base hexadecimal: \n")
+                    hexadecimal = numero_entrada
+                    decimal = int(hexadecimal_para_decimal(hexadecimal))
+                    bcd = decimal_para_bcd(decimal)
+
+                    limpar()
+                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
+
+                #Tratando erro na entrada do tipo de base.
+                else:
+                    print("Ocorreu um erro ao inserir o número da base de início, utilize apenas números, digitando exatamente o que estiver entre os colchetes.")
 
             #Tratando erro de entrada na variável "acao":
             else:
