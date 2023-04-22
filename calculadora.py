@@ -45,7 +45,7 @@ def operacao_1num(numero_1):#Responsável por realizar as operações com 1 núm
         num_2= math.radians(num_1)
 
         if operador =='sen':#Operação Seno.
-            print(f'sen({num_1}) = {math.sen(num_2)}')
+            print(f'sen({num_1}) = {math.sin(num_2)}')
             
         elif operador =='cos':#Operação Cosseno.
             print(f'cos({num_1}) = {math.cos(num_2)}')
@@ -57,10 +57,10 @@ def operacao_1num(numero_1):#Responsável por realizar as operações com 1 núm
             print(f'sec({num_1}) = {1/math.cos(num_2)}')
                 
         elif operador =='cossec':#Operação Cossecante.
-            print(f'cossec({num_1}) = {1/math.sen(num_2)}')
+            print(f'cossec({num_1}) = {1/math.sin(num_2)}')
             
         elif operador =='cotg':#Operação Cotangente.
-            print(f'cotg({num_1}) = {1/math.tg(num_2)}')
+            print(f'cotg({num_1}) = {1/math.tan(num_2)}')
         
 def operacao_2num(numero_1):#Responsável por realizar as operações com 2 números.
     numero_2= input("Digite outro número: ").strip()
@@ -270,7 +270,18 @@ def decimal_para_bcd(decimal):
         bcd = "0"*(4-i) + decimal_para_binario(int(decimal[i])) + bcd
     bcd = bcd[::-1]
     return bcd
-        
+      
+def tira_0_esquerda(numero):
+    numero_tratado = numero
+    for i in range(0,len(numero)):
+        if numero_tratado[0] == "0":
+            numero_tratado=""
+            for u in range(i,len(numero)):
+                numero_tratado += numero[u]
+        else:
+            return numero_tratado
+    
+    
 #Tutorial:
 #Inicializando booleano que define se será ou não exibido o tutorial.
 tutorial = False 
@@ -372,7 +383,7 @@ while algoritmo is True:
                 #Entrada em base Binária.
                 elif base == 2:
                     numero_entrada = input("Insira o número na base binaria:\n")
-
+                    numero_entrada = tira_0_esquerda(numero_entrada)
                     binario = numero_entrada
                     decimal = int(binario_para_decimal(binario))
                     octal = decimal_para_octal(decimal)
@@ -384,7 +395,7 @@ while algoritmo is True:
                 #Entrada em base Octal.
                 elif base == 8:
                     numero_entrada = input("Insira o número na base octal: \n")
-
+                    numero_entrada = tira_0_esquerda(numero_entrada)
                     octal = numero_entrada
                     decimal = int(octal_para_decimal(octal))
                     binario = decimal_para_binario(decimal)
@@ -396,7 +407,7 @@ while algoritmo is True:
                 #Entrada em base Hexadecimal.
                 elif base == 16:
                     numero_entrada = input("Insira o número na base hexadecimal: \n")
-
+                    numero_entrada = tira_0_esquerda(numero_entrada)
                     hexadecimal = numero_entrada
                     decimal = int(hexadecimal_para_decimal(hexadecimal))
                     binario = decimal_para_binario(decimal)
@@ -412,7 +423,7 @@ while algoritmo is True:
             #Conversor para Gray:
             elif acao == "b":
                 numero_entrada = input("Insira o número na base binaria:\n")
-
+                numero_entrada = tira_0_esquerda(numero_entrada)
                 binario = numero_entrada
                 gray = binario_para_gray(binario)
                 limpar()
@@ -421,7 +432,7 @@ while algoritmo is True:
             #Conversor para Complementares:
             elif acao == "c":
                 numero_entrada = input("Insira o número na base binaria:\n")
-                
+                numero_entrada = tira_0_esquerda(numero_entrada)
                 binario = numero_entrada
                 complementar_1 = binario_para_complementar_1(binario)
                 complementar_2 = complementar_1_para_complementar_2(complementar_1)
@@ -443,6 +454,7 @@ while algoritmo is True:
                 #Entrada em base Binária.
                 elif base == 2:
                     numero_entrada = input("Insira o número na base binaria:\n")
+                    numero_entrada = tira_0_esquerda(numero_entrada)
                     binario = numero_entrada
                     decimal = int(inario_para_decimal(binario))
                     bcd = decimal_para_bcd(decimal)
@@ -453,6 +465,7 @@ while algoritmo is True:
                 #Entrada em base Octal.
                 elif base == 8:
                     numero_entrada = input("Insira o número na base octal: \n")
+                    numero_entrada = tira_0_esquerda(numero_entrada)
                     octal = numero_entrada
                     decimal = int(octal_para_decimal(octal))
                     bcd = decimal_para_bcd(decimal)
@@ -463,6 +476,7 @@ while algoritmo is True:
                 #Entrada em base Hexadecimal.
                 elif base == 16:
                     numero_entrada = input("Insira o número na base hexadecimal: \n")
+                    numero_entrada = tira_0_esquerda(numero_entrada)
                     hexadecimal = numero_entrada
                     decimal = int(hexadecimal_para_decimal(hexadecimal))
                     bcd = decimal_para_bcd(decimal)
