@@ -1,5 +1,5 @@
 #Importando bilbliotecas:
-import math; from os import name, system
+from math import tan, sin, cos, radians ; from os import name, system
 #Declarando Variáveis:
 #Booleanos usados nos loops.
 algoritmo = True; conversor = False; calculadora = False; complementando = False
@@ -42,25 +42,25 @@ def operacao_1num(numero_1):#Responsável por realizar as operações com 1 núm
 
     else:#Operações trigométricas:
         num_1 = float(numero_1)
-        num_2= math.radians(num_1)
+        num_2= radians(num_1)
 
         if operador =='sen':#Operação Seno.
-            print(f'sen({num_1}) = {math.sin(num_2)}')
+            print(f'sen({num_1}) = {sin(num_2)}')
             
         elif operador =='cos':#Operação Cosseno.
-            print(f'cos({num_1}) = {math.cos(num_2)}')
+            print(f'cos({num_1}) = {cos(num_2)}')
             
         elif operador =='tg':#Operação Tangente.
-            print(f'tg({num_1}) = {math.tg(num_2)}')
+            print(f'tg({num_1}) = {tan(num_2)}')
             
         elif operador =='sec':#Operação Secante.
-            print(f'sec({num_1}) = {1/math.cos(num_2)}')
+            print(f'sec({num_1}) = {1/cos(num_2)}')
                 
         elif operador =='cossec':#Operação Cossecante.
-            print(f'cossec({num_1}) = {1/math.sin(num_2)}')
+            print(f'cossec({num_1}) = {1/sin(num_2)}')
             
         elif operador =='cotg':#Operação Cotangente.
-            print(f'cotg({num_1}) = {1/math.tan(num_2)}')
+            print(f'cotg({num_1}) = {1/tan(num_2)}')
         
 def operacao_2num(numero_1):#Responsável por realizar as operações com 2 números.
     numero_2= input("Digite outro número: ").strip()
@@ -101,9 +101,11 @@ def operacao_2num(numero_1):#Responsável por realizar as operações com 2 núm
         elif operador == 'hiper':
             num_2= int(num_2)
             indice = num_1
-            for i in range(0,num_2):
+            i = 0
+            while i < num_2:
                 num_1= num_1**indice
                 print(f'{numero_1} hiper {num_2} = {num_1}')
+                i+=1
 
         #Tratando possível erro na entrada da variável "operador".
         else:
@@ -270,7 +272,7 @@ def decimal_para_bcd(decimal):
         bcd = "0"*(4-i) + decimal_para_binario(int(decimal[i])) + bcd
     bcd = bcd[::-1]
     return bcd
-      
+
 def tira_0_esquerda(numero):
     numero_tratado = numero
     for i in range(0,len(numero)):
@@ -280,8 +282,8 @@ def tira_0_esquerda(numero):
                 numero_tratado += numero[u]
         else:
             return numero_tratado
-    
-    
+
+
 #Tutorial:
 #Inicializando booleano que define se será ou não exibido o tutorial.
 tutorial = False 
@@ -309,6 +311,8 @@ tutorial= input("Deseja ver o tutorial de como utilizar o algoritmo?\n [S]im [N]
 if tutorial is True:
     limpar()
     print(texto_tutorial)
+else:
+    limpar()
 
 #Algoritmo:
 while algoritmo is True:
@@ -327,7 +331,8 @@ while algoritmo is True:
             operador=''
 
             numero_1= input("Digite um número: ").strip()
-
+            limpar()
+            
             if numero_1.isnumeric():
                 operador= input("Digite um operador: ").strip().lower()
                 limpar()
@@ -456,7 +461,7 @@ while algoritmo is True:
                     numero_entrada = input("Insira o número na base binaria:\n")
                     numero_entrada = tira_0_esquerda(numero_entrada)
                     binario = numero_entrada
-                    decimal = int(inario_para_decimal(binario))
+                    decimal = int(binario_para_decimal(binario))
                     bcd = decimal_para_bcd(decimal)
 
                     limpar()
