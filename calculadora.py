@@ -6,17 +6,17 @@ algoritmo = True; conversor = False; calculadora = False; complementando = False
 
 #Calculadora:
 #Lista com operadores que necessitam apenas de 1 número.
-operadores_1num= ['!','sen', 'cos', 'tg', 'cossec', 'sec', 'cotg'] 
+OPERADORES_1NUM = ['!','sen', 'cos', 'tg', 'cossec', 'sec', 'cotg'] 
 #Lista com operadores que necessitam de 2 números.
-operadores_2num = ['+', '-','/','*','%','^','raiz', 'hiper'] 
+OPERADORES_2NUM = ['+', '-','/','*','%','^','raiz', 'hiper'] 
 #Inicializando números e operador.
 numero_1 = 0; numero_2 = 0; operador='' 
 
 #Conversor:
 #Escolha das Operações:
-conversoes = ['A', 'B',' C', "D"]
+CONVERSOES = ['A', 'B',' C', "D"]
 #Lista com Bases que são aceitas.
-tipos_de_base = [2,8,10,16]
+TIPOS_DE_BASE = [2,8,10,16]
 #Inicializando bases
 binario = ""; octal = ""; decimal = ""; hexadecimal = ""; gray = ""; complementar_1 =""; complementar_2 =""; bcd=""
 
@@ -338,11 +338,11 @@ while algoritmo is True:
                 limpar()
 
                 #Operações que dependem de apenas um número.
-                if operador in operadores_1num:
+                if operador in OPERADORES_1NUM:
                     operacao_1num(numero_1)
 
                 #Operações que dependem de dois números.
-                elif operador in operadores_2num:
+                elif operador in OPERADORES_2NUM:
                     limpar()
                     operacao_2num(numero_1)
 
