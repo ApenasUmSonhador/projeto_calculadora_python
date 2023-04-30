@@ -1,28 +1,30 @@
 #Importando bilbliotecas:
 from math import tan, sin, cos, radians ; from os import name, system
-#Declarando Variáveis:
+
+#DECLARANDO VARIÁVEIS:
 #Booleanos usados nos loops.
-algoritmo = True; conversor = False; calculadora = False; complementando = False
+algoritmo = True ; conversor = False ; calculadora = False ; complementando = False
+#Variável usada para selecionar a ferramenta.
+ferramenta = ""
 
 #Calculadora:
 #Lista com operadores que necessitam apenas de 1 número.
-OPERADORES_1NUM = ['!','sen', 'cos', 'tg', 'cossec', 'sec', 'cotg'] 
+OPERADORES_1NUM = '!','sen', 'cos', 'tg', 'cossec', 'sec', 'cotg'
 #Lista com operadores que necessitam de 2 números.
-OPERADORES_2NUM = ['+', '-','/','*','%','^','raiz', 'hiper'] 
+OPERADORES_2NUM = '+', '-','/','*','%','^','raiz', 'hiper'
 #Inicializando números e operador.
-numero_1 = 0; numero_2 = 0; operador='' 
+numero_1 = 0 ; numero_2 = 0 ; operador = '' 
 
 #Conversor:
-#Escolha das Operações:
-CONVERSOES = ['A', 'B',' C', "D"]
-#Lista com Bases que são aceitas.
-TIPOS_DE_BASE = [2,8,10,16]
+#Lista com bases que são aceitas.
+TIPOS_DE_BASE = 2,8,10,16
 #Inicializando bases
-binario = ""; octal = ""; decimal = ""; hexadecimal = ""; gray = ""; complementar_1 =""; complementar_2 =""; bcd=""
+binario = "" ; octal = "" ; decimal = "" ; hexadecimal = "" ; gray = "" ; complementar_1 = "" ; complementar_2 = "" ; bcd = ""
 
 
-#Declarando funções:
-def limpar():#Responsável por limpar o terminal.
+#DECLARANDO FUNÇÕES:
+#Responsável por limpar o terminal.
+def limpar():
     #Conferindo qual o tipo de sistema operacional:
     if name == "nt":#Windows
         system('cls')
@@ -30,7 +32,36 @@ def limpar():#Responsável por limpar o terminal.
     else:#Linux
         system('clear')
 
-def operacao_1num(numero_1):#Responsável por realizar as operações com 1 número.
+#Responsável por mostrar créditos do autor.
+def creditos():
+    limpar()
+    
+    #Antes de escolher qual ferramenta utilizar.
+    if algoritmo == False:
+        print("\n------------------- MUITO OBRIGADO -------------------")
+        print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
+        print( "------------------------ FIM -------------------------\n")
+    
+    #Utilizando o Conversor.
+    elif conversor == True:
+        print("\n-------------- CONVERSOR DE BASES -----------------")
+        print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
+        print( "---------------------------------------------------\n")
+    
+    #Utilizando a Calculadora.
+    elif calculadora == True:
+        print("\n------------------- CALCULADORA -------------------")
+        print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
+        print( "---------------------------------------------------\n")
+        
+    else:
+        print("\n-------------- BEM VINDO AO PROGRAMA --------------")
+        print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
+        print( "---------------------------------------------------\n")
+
+#Calculadora:
+#Responsável por realizar as operações com 1 número.
+def operacao_1num(numero_1):
     if operador == '!':#Operação Fatorial.
         num_1=int(numero_1)
         resultado = 1
@@ -44,77 +75,76 @@ def operacao_1num(numero_1):#Responsável por realizar as operações com 1 núm
         num_1 = float(numero_1)
         num_2= radians(num_1)
 
-        if operador =='sen':#Operação Seno.
+        #Operação Seno.
+        if operador =='sen':
             print(f'sen({num_1}) = {sin(num_2)}')
-            
-        elif operador =='cos':#Operação Cosseno.
+        
+        #Operação Cosseno.
+        elif operador =='cos':
             print(f'cos({num_1}) = {cos(num_2)}')
-            
-        elif operador =='tg':#Operação Tangente.
+        
+        #Operação Tangente.
+        elif operador =='tg':
             print(f'tg({num_1}) = {tan(num_2)}')
-            
-        elif operador =='sec':#Operação Secante.
+
+        #Operação Secante.    
+        elif operador =='sec':
             print(f'sec({num_1}) = {1/cos(num_2)}')
                 
-        elif operador =='cossec':#Operação Cossecante.
+        #Operação Cossecante.
+        elif operador =='cossec':
             print(f'cossec({num_1}) = {1/sin(num_2)}')
             
-        elif operador =='cotg':#Operação Cotangente.
+        #Operação Cotangente.
+        elif operador =='cotg':
             print(f'cotg({num_1}) = {1/tan(num_2)}')
-        
-def operacao_2num(numero_1):#Responsável por realizar as operações com 2 números.
+
+#Responsável por realizar as operações com 2 números.       
+def operacao_2num(numero_1):
     numero_2= input("Digite outro número: ").strip()
+
+    num_1=float(numero_1)
+    num_2=float(numero_2)
+
+    #Operação Soma.
+    if operador == '+':
+        print(f'{num_1} + {num_2} = {num_1+num_2}')
+
+    #Operação Subtração.
+    elif operador == '-':
+        print(f'{num_1} - {num_2} = {num_1-num_2}')
+
+    #Operação Multiplicação.
+    elif operador == '*':
+        print(f'{num_1} * {num_2} = {num_1*num_2}')
+
+    #Operação Divisão.
+    elif operador == '/':
+        print(f'{num_1} / {num_2} = {num_1/num_2}')
+
+    #Operação Potênciação.
+    elif operador == '^':
+        print(f'{num_1} ^ {num_2} = {num_1**num_2}')
+
+    #Operação Modular.
+    elif operador == '%':
+        print(f'{num_1} % {num_2} = {num_1%num_2}')
+
+    #Operação Radiciação.
+    elif operador == 'raiz':
+        print(f'A {num_2}ª raiz de {num_1} = {num_1**(1/num_2)}')
     
-    if numero_2.isnumeric():
-        num_1=float(numero_1)
-        num_2=float(numero_2)
+    #Operação Tetração.
+    elif operador == 'hiper':
+        num_2= int(num_2)
+        indice = num_1
+        i = 0
+        while i < num_2:
+            num_1= num_1**indice
+            print(f'{numero_1} hiper {num_2} = {num_1}')
+            i+=1
 
-        #Operação Soma.
-        if operador == '+':
-            print(f'{num_1} + {num_2} = {num_1+num_2}')
-
-        #Operação Subtração.
-        elif operador == '-':
-            print(f'{num_1} - {num_2} = {num_1-num_2}')
-
-        #Operação Multiplicação.
-        elif operador == '*':
-            print(f'{num_1} * {num_2} = {num_1*num_2}')
-
-        #Operação Divisão.
-        elif operador == '/':
-            print(f'{num_1} / {num_2} = {num_1/num_2}')
-
-        #Operação Potênciação.
-        elif operador == '^':
-            print(f'{num_1} ^ {num_2} = {num_1**num_2}')
-
-        #Operação Modular.
-        elif operador == '%':
-            print(f'{num_1} % {num_2} = {num_1%num_2}')
-
-        #Operação Radiciação.
-        elif operador == 'raiz':
-            print(f'A {num_2}ª raiz de {num_1} = {num_1**(1/num_2)}')
-        
-        #Operação Tetração.
-        elif operador == 'hiper':
-            num_2= int(num_2)
-            indice = num_1
-            i = 0
-            while i < num_2:
-                num_1= num_1**indice
-                print(f'{numero_1} hiper {num_2} = {num_1}')
-                i+=1
-
-        #Tratando possível erro na entrada da variável "operador".
-        else:
-            print("Tente novamente, o operador foi considerado invalido.")
-
-    #Tratando possível erro na entrada da variável "numero_2".
-    else:
-        print("Tente novamente, o número foi considerado invalido.")
-
+#Conversor de bases:
 #Responsável por converter Decimal -> Binário.            
 def decimal_para_binario(decimal):
     binario = ""
@@ -136,9 +166,12 @@ def decimal_para_octal(decimal):
     while decimal > 0:
         if decimal % 8 != 0:
             octal = str(decimal % 8) + octal
+
         else:
             octal = "0" + octal
+
         decimal //= 8
+
     return octal
 
 #Responsável por converter Decimal -> Hexadecimal.
@@ -227,12 +260,16 @@ def hexadecimal_para_decimal(hexadecimal):
 #Responsável por converter Binário -> Gray.
 def binario_para_gray(binario):
     gray = binario[0]
+
     for i in range(0,len(binario)-1):
         if ((binario[i]=="1" or binario[i+1]=="1") and (not binario[i]=="1" or not binario[i+1]=="1")):
             gray = gray + "1"
+
         else:
             gray = gray + "0"
+
         i+=1
+
     return gray
 
 #Responsável por converter Binário -> Complementar 1.
@@ -241,8 +278,10 @@ def binario_para_complementar_1(binario):
     for i in range(0,len(binario)):
         if binario[i]=="1":
             complementar_1 = complementar_1 + "0"
+
         else:
             complementar_1 = complementar_1 + "1"
+
     return complementar_1
 
 #Responsável por converter Binário -> Complementar 2
@@ -256,11 +295,14 @@ def complementar_1_para_complementar_2(complementar_1):
                 complementar_2 = complementar_2 + "0"
                 if i == len(complementar_1)-1:
                     complementar_2 = complementar_2 + "1"
+
             else:
                 complementar_2 = complementar_2 + "1"
                 complementando = True
+
         else:
             complementar_2 = complementar_2 + complementar_1[i]
+
     complementar_2 = complementar_2[::-1]
     return complementar_2
 
@@ -273,236 +315,333 @@ def decimal_para_bcd(decimal):
     bcd = bcd[::-1]
     return bcd
 
+#Responsável por tirar os zeros à esquerda.
 def tira_0_esquerda(numero):
     numero_tratado = numero
     for i in range(0,len(numero)):
         if numero_tratado[0] == "0":
-            numero_tratado=""
+            numero_tratado = ""
             for u in range(i,len(numero)):
                 numero_tratado += numero[u]
+
         else:
             return numero_tratado
 
 
 #Tutorial:
-#Inicializando booleano que define se será ou não exibido o tutorial.
 tutorial = False 
-texto_tutorial ='\
-Esse algoritmo foi desenvolvida utilizando a linguagem de programação Python3, portanto, para usufruir da melhor maneira possível, deve-se seguir algumas regras.\
-        \nNos locais em que existem decisões de sim ou nao, caso coloque algo invalido, adotaremos como um "NÃO". \
-        \n0: Como escolher o que utilizar:\
-        \n0.1: Para escolher utilizar a Calculadora, quando pedido, digite "A". \
-        \n0.2: Para escolher utilizar a Conversor, quando pedido, digite "B". \
-        \n\n1: Como utilizar a Calculadora: \
-        \n1.1: Serão pedidos números para a realização das operações. Nesses espaços digite APENAS números, salvo 2 exceções:\
-        \n     Angulos: adote sempre os angulos em graus.\
-        \n     Negativos: use o " - " antes de digitar os números (exemplo: -14);\
-        \n     Decimais: utilize o " . " para separar a parte inteira de um número de sua parte racional(exemplo: 3.14)  \
-        \n1.2: Será pedido o operador matemático de interesse, para usar de maneira devida digite APENAS UM operador por vez, utilizando operadores entre: [!,sen, cos, tg, cossec, sec, cotg] e [+, -, /, *, %, ^, raiz, hiper]. \
-        \n1.3: Após a operação, será apresentado o resultado e a pergunta se quer sair ou não da calculadora. Para continuar digite "s", caso contrário digite "n".\
-        \n1.4: Ocorra algum erro, será perguntado se deseja sair da calculadora e caso permaneça, recomeça tudo novamente.\
-        \n\n2: Como utilizar o Conversor: \
-        \n2.1: Quando pedido, digite, utilizando APENAS números, qual o tipo de base estará o número a ser convertido. \
-        \n2.2: Quando pedido, digite, utilizando APENAS os bits que a base aceita (exemplo: Binario - utilize apenas 0s e 1s),  o número que será convertido para as outras bases.\
-        \n2.3. Serão exibidos os números pós-conversão.\
-        \n2.4. Quando pedido, digite, utilizando apenas UMA letra ("n" ou "s"), se deseja continuar convertendo ou não, se quiser continuar digite "s", caso contrário digite "n".\n' 
-tutorial= input("Deseja ver o tutorial de como utilizar o algoritmo?\n [S]im [N]ao: ").strip().lower().startswith('s')
-
+texto_tutorial = f'-------------- POSSÍVEIS OPERAÇÕES ----------------- \
+                \n1.Calculadora:\
+                \n1.1.Operações de 1 número:\
+                \n{OPERADORES_1NUM} \
+                \n1.2.Operações de 2 números:\
+                \n{OPERADORES_2NUM} \n\
+                \n2.Conversor:\
+                \n2.1.Converter para bases 2,8,10 e 16.\
+                \n2.2.Converter para Complementares, Gray e BCD.\n\
+                \n-------------- ENTRADAS DE DECISÃO -----------------\
+                \n1.Digite APENAS o que está entre colchetes.\
+                \n2.Não importa se utilizar letra maiúscula ou minúscula.\n\
+                \n-------------- ENTRADAS DE NÚMERO ----------------- \
+                \n1.Na calculadora:\
+                \n1.1.Digite APENAS números reais na base decimal.\
+                \n1.2.Utilize o "." para definir parte racional\n\
+                \n2.No conversor:\
+                \n2.1.Digite apenas números na base selecionada.\
+                \n---------------------------------------------------\n'
+creditos()
+tutorial= input("Deseja ver o tutorial de como utilizar o algoritmo?\n\t         [S]im [N]ao: ").strip().lower().startswith('s')
 if tutorial is True:
-    limpar()
+    creditos()
     print(texto_tutorial)
+
 else:
-    limpar()
+    creditos()
+
 
 #Algoritmo:
 while algoritmo is True:
-    conversor = input("O que deseja utilizar? \n [A]Calculadora [B]Conversor de bases\n").strip().lower().startswith('b')
-    limpar()
+    ferramenta = input("\tQual programa deseja utilizar?\
+                    \n---------------------------------------------------\
+                    \n      [A]Calculadora [B]Conversor de bases: ").strip().lower()
     
     #Calculadora:
-    if conversor is False: 
+    if ferramenta.startswith("a"): 
         calculadora = True
+        conversor = False
         
         #Loop para caso o usuário queira continuar utilizando a Calculadora.
         while calculadora is True:
             #Reiniciando as variavéis:
-            numero_1=0
-            numero_2=0
-            operador=''
+            numero_1 = 0
+            numero_2 = 0
+            operador = ''
 
-            numero_1= input("Digite um número: ").strip()
-            limpar()
+            creditos()
+            numero_1 = input("Digite um número: ").strip()
             
-            if numero_1.isnumeric():
-                operador= input("Digite um operador: ").strip().lower()
-                limpar()
+            try:
+                creditos()
+                operador = input("Digite um operador: ").strip().lower()
 
                 #Operações que dependem de apenas um número.
                 if operador in OPERADORES_1NUM:
+                    creditos()
                     operacao_1num(numero_1)
 
                 #Operações que dependem de dois números.
                 elif operador in OPERADORES_2NUM:
-                    limpar()
+                    creditos()
                     operacao_2num(numero_1)
+                
+                #Operador considerado inválido.
+                else:
+                    creditos()
+                    print("\n-------------------  ERROR ----------------------")
+                    print("    Por favor, siga de acordo com o tutorial")
+                    print( "---------------------------------------------------\n")
 
             #Tratando possível erro na entrada da variável "numero_1".
-            else:
-                print("Tente novamente, o número foi considerado invalido.")
+            except ValueError:
+                creditos()
+                print("\n-------------------  ERROR ----------------------")
+                print("    Por favor, siga de acordo com o tutorial")
+                print( "---------------------------------------------------\n")
                 
             #Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar a calculadora, ou True caso queira continuar utilizando-a.
-            continuar = input("Deseja continuar utilizando a Calculadora? \n[s]im [n]ao: ").lower().strip().startswith("s")
+            continuar =  input("\n---------------------------------------------------\
+                    \n    Deseja continuar utilizando a Calculadora?\
+                    \n\t         [S]im [N]ao: ").lower().strip().startswith("s")
+            
             if continuar == False:
                 calculadora = False
-                limpar()
+                creditos()
             
-    #Conversor:
-    else:
+    #Conversor de Bases:
+    elif ferramenta.startswith("b"):
+        conversor = True
         calculadora = False
         
         #Loop para caso o usuário queira continuar utilizando o Conversor.
         while conversor is True:
             #Reiniciando as variáveis:   
-            binario = ""; octal = ""; decimal = ""; hexadecimal = ""; gray = ""; complementar_1 =""; complementar_2 =""
+            binario = "" ; octal = "" ; decimal = "" ; hexadecimal = "" ; gray = "" ; complementar_1 ="" ; complementar_2 =""
+            creditos()
 
             #Recebendo o que usuário deseja fazer:
-            acao =input("Qual ferramenta deseja utilizar? \n[A]Conversor de bases [B]Conversor para Gray [C]Conversor para Complementares [D]Conversor para BCD\n").strip().lower()
+            acao = input("\tQual ferramenta deseja utilizar?\
+                    \n---------------------------------------------------\
+                    \n[A]Conversor de bases [B]Complementares, Gray e BCD\n").strip().lower()
 
             #Conversor de bases:
             if acao == "a":
-                #Recebendo qual a base do número a ser convertido:
-                base = int(input("Insira qual o número da base de entrada.\n[2] [8] [10] [16]: "))
+                try:
+                    creditos()
 
-                #Entrada em base Decimal.
-                if base == 10:
-                    numero_entrada = input("Insira o número na base decimal:\n")
+                    #Recebendo qual a base do número a ser convertido:
+                    base = int(input("Insira qual o número da base de entrada.\
+                    \n---------------------------------------------------\
+                    \n[2] [8] [10] [16]: "))
 
-                    decimal = int(numero_entrada)
-                    binario = decimal_para_binario(decimal)
-                    octal = decimal_para_octal(decimal)
-                    hexadecimal = decimal_para_hexadecimal(decimal)
+                    #Entrada em base Decimal.
+                    if base == 10:
+                        creditos()
+                        numero_entrada = input("Insira o número na base decimal:\n")
 
-                    limpar()
-                    print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                        decimal = int(numero_entrada)
+                        binario = decimal_para_binario(decimal)
+                        octal = decimal_para_octal(decimal)
+                        hexadecimal = decimal_para_hexadecimal(decimal)
+
+                        creditos()
+                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                        
+                    #Entrada em base Binária.
+                    elif base == 2:
+                        creditos()
+                        numero_entrada = input("Insira o número na base binaria:\n")
+
+                        numero_entrada = tira_0_esquerda(numero_entrada)
+                        binario = numero_entrada
+                        decimal = int(binario_para_decimal(binario))
+                        octal = decimal_para_octal(decimal)
+                        hexadecimal = decimal_para_hexadecimal(decimal)
+
+                        creditos()
+                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+
+                    #Entrada em base Octal.
+                    elif base == 8:
+                        creditos()
+                        numero_entrada = input("Insira o número na base octal: \n")
+
+                        numero_entrada = tira_0_esquerda(numero_entrada)
+                        octal = numero_entrada
+                        decimal = int(octal_para_decimal(octal))
+                        binario = decimal_para_binario(decimal)
+                        hexadecimal=decimal_para_hexadecimal(decimal)
+
+                        creditos()
+                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
                     
-                #Entrada em base Binária.
-                elif base == 2:
-                    numero_entrada = input("Insira o número na base binaria:\n")
-                    numero_entrada = tira_0_esquerda(numero_entrada)
-                    binario = numero_entrada
-                    decimal = int(binario_para_decimal(binario))
-                    octal = decimal_para_octal(decimal)
-                    hexadecimal = decimal_para_hexadecimal(decimal)
+                    #Entrada em base Hexadecimal.
+                    elif base == 16:
+                        creditos()
+                        numero_entrada = input("Insira o número na base hexadecimal: \n").title()
 
-                    limpar()
-                    print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                        numero_entrada = tira_0_esquerda(numero_entrada)
+                        hexadecimal = numero_entrada
+                        decimal = int(hexadecimal_para_decimal(hexadecimal))
+                        binario = decimal_para_binario(decimal)
+                        octal = decimal_para_octal(decimal)
 
-                #Entrada em base Octal.
-                elif base == 8:
-                    numero_entrada = input("Insira o número na base octal: \n")
-                    numero_entrada = tira_0_esquerda(numero_entrada)
-                    octal = numero_entrada
-                    decimal = int(octal_para_decimal(octal))
-                    binario = decimal_para_binario(decimal)
-                    hexadecimal=decimal_para_hexadecimal(decimal)
+                        creditos()
+                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                    
+                    #Tratando erro na entrada do tipo de base.
+                    else:
+                        creditos()
+                        print("\n-------------------  ERROR ----------------------")
+                        print("    Por favor, siga de acordo com o tutorial")
+                        print( "---------------------------------------------------\n")
 
-                    limpar()
-                    print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
-                
-                #Entrada em base Hexadecimal.
-                elif base == 16:
-                    numero_entrada = input("Insira o número na base hexadecimal: \n")
-                    numero_entrada = tira_0_esquerda(numero_entrada)
-                    hexadecimal = numero_entrada
-                    decimal = int(hexadecimal_para_decimal(hexadecimal))
-                    binario = decimal_para_binario(decimal)
-                    octal = decimal_para_octal(decimal)
+                #Tratando erro na entrada do número de entrada.
+                except ValueError:
+                    creditos()
+                    print("\n-------------------  ERROR ----------------------")
+                    print("    Por favor, siga de acordo com o tutorial")
+                    print( "---------------------------------------------------\n")
 
-                    limpar()
-                    print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
-                
-                #Tratando erro na entrada do tipo de base.
-                else:
-                    print("Ocorreu um erro ao inserir o número da base de início, utilize apenas números, digitando exatamente o que estiver entre os colchetes.")
-            
-            #Conversor para Gray:
+            #Conversor para BCD, C1, C2 e Gray:
             elif acao == "b":
-                numero_entrada = input("Insira o número na base binaria:\n")
-                numero_entrada = tira_0_esquerda(numero_entrada)
-                binario = numero_entrada
-                gray = binario_para_gray(binario)
-                limpar()
-                print(f"Binário: {binario} \n Seu Gray: {gray}")
+                try:
+                    creditos()
+                    base = int(input("Insira qual o número da base de entrada.\
+                    \n---------------------------------------------------\
+                    \n[2] [8] [10] [16]: "))
 
-            #Conversor para Complementares:
-            elif acao == "c":
-                numero_entrada = input("Insira o número na base binaria:\n")
-                numero_entrada = tira_0_esquerda(numero_entrada)
-                binario = numero_entrada
-                complementar_1 = binario_para_complementar_1(binario)
-                complementar_2 = complementar_1_para_complementar_2(complementar_1)
-                limpar()
-                print(f"Binário: {binario} \nSeu Complementar 1: {complementar_1} \nSeu Complementar 2: {complementar_2}")
+                    #Entrada em base Decimal.
+                    if base == 10:
+                        creditos()
+                        numero_entrada = input("Insira o número na base decimal:\n")
 
-            #Conversor para BCD:
-            elif acao == "d":
-                base = int(input("Insira qual o número da base de entrada.\n[2] [8] [10] [16]: "))
+                        decimal = int(numero_entrada)
+                        binario = decimal_para_binario(decimal)
+                        bcd = decimal_para_bcd(decimal)
+                        gray = binario_para_gray(binario)
+                        complementar_1 = binario_para_complementar_1(binario)
+                        complementar_2 = complementar_1_para_complementar_2(complementar_1)
 
-                #Entrada em base Decimal.
-                if base == 10:
-                    numero_entrada = input("Insira o número na base decimal:\n")
-                    decimal = int(numero_entrada)
-                    bcd = decimal_para_bcd(decimal)
-                    limpar()
-                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
+                        creditos()
+                        print(f"O número de entrada na base [{base}] é {numero_entrada}.\
+                            \n\tSeu BCD é: {bcd}\
+                            \n\tSeu C1 é: {complementar_1}\
+                            \n\tSeu C2 é: {complementar_2}\
+                            \n\tSeu Gray é: {gray}")
+                        
+                    #Entrada em base Binária.
+                    elif base == 2:
+                        creditos()
+                        numero_entrada = input("Insira o número na base binaria:\n")
+
+                        numero_entrada = tira_0_esquerda(numero_entrada)
+                        binario = numero_entrada
+                        decimal = int(binario_para_decimal(binario))
+                        bcd = decimal_para_bcd(decimal)
+                        gray = binario_para_gray(binario)
+                        complementar_1 = binario_para_complementar_1(binario)
+                        complementar_2 = complementar_1_para_complementar_2(complementar_1)
+
+                        creditos()
+                        print(f"O número de entrada na base [{base}] é {numero_entrada}.\
+                            \n\tSeu BCD é: {bcd}\
+                            \n\tSeu C1 é: {complementar_1}\
+                            \n\tSeu C2 é: {complementar_2}\
+                            \n\tSeu Gray é: {gray}")
+
+                    #Entrada em base Octal.
+                    elif base == 8:
+                        creditos()
+                        numero_entrada = input("Insira o número na base octal: \n")
+
+                        numero_entrada = tira_0_esquerda(numero_entrada)
+                        octal = numero_entrada
+                        decimal = int(octal_para_decimal(octal))
+                        binario = decimal_para_binario(decimal)
+                        bcd = decimal_para_bcd(decimal)
+                        gray = binario_para_gray(binario)
+                        complementar_1 = binario_para_complementar_1(binario)
+                        complementar_2 = complementar_1_para_complementar_2(complementar_1)
+
+                        creditos()
+                        print(f"O número de entrada na base [{base}] é {numero_entrada}.\
+                            \n\tSeu BCD é: {bcd}\
+                            \n\tSeu C1 é: {complementar_1}\
+                            \n\tSeu C2 é: {complementar_2}\
+                            \n\tSeu Gray é: {gray}")
                     
-                #Entrada em base Binária.
-                elif base == 2:
-                    numero_entrada = input("Insira o número na base binaria:\n")
-                    numero_entrada = tira_0_esquerda(numero_entrada)
-                    binario = numero_entrada
-                    decimal = int(binario_para_decimal(binario))
-                    bcd = decimal_para_bcd(decimal)
+                    #Entrada em base Hexadecimal.
+                    elif base == 16:
+                        creditos()
+                        numero_entrada = input("Insira o número na base hexadecimal: \n").title()
 
-                    limpar()
-                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
+                        numero_entrada = tira_0_esquerda(numero_entrada)
+                        hexadecimal = numero_entrada
+                        decimal = int(hexadecimal_para_decimal(hexadecimal))
+                        binario = decimal_para_binario(decimal)
+                        bcd = decimal_para_bcd(decimal)
+                        gray = binario_para_gray(binario)
+                        complementar_1 = binario_para_complementar_1(binario)
+                        complementar_2 = complementar_1_para_complementar_2(complementar_1)
 
-                #Entrada em base Octal.
-                elif base == 8:
-                    numero_entrada = input("Insira o número na base octal: \n")
-                    numero_entrada = tira_0_esquerda(numero_entrada)
-                    octal = numero_entrada
-                    decimal = int(octal_para_decimal(octal))
-                    bcd = decimal_para_bcd(decimal)
+                        creditos()
+                        print(f"O número de entrada na base [{base}] é {numero_entrada}.\
+                            \n\tSeu BCD é: {bcd}\
+                            \n\tSeu C1 é: {complementar_1}\
+                            \n\tSeu C2 é: {complementar_2}\
+                            \n\tSeu Gray é: {gray}")
+                        
+                    #Tratando erro na entrada do tipo de base.
+                    else:
+                        creditos()
+                        print("\n-------------------  ERROR ----------------------")
+                        print("    Por favor, siga de acordo com o tutorial")
+                        print( "---------------------------------------------------\n")
+
+                #Tratando problema no número da entrada.        
+                except ValueError:
+                    creditos()
+                    print("\n-------------------  ERROR ----------------------")
+                    print("    Por favor, siga de acordo com o tutorial")
+                    print( "---------------------------------------------------\n")
                     
-                    limpar()
-                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
-                
-                #Entrada em base Hexadecimal.
-                elif base == 16:
-                    numero_entrada = input("Insira o número na base hexadecimal: \n")
-                    numero_entrada = tira_0_esquerda(numero_entrada)
-                    hexadecimal = numero_entrada
-                    decimal = int(hexadecimal_para_decimal(hexadecimal))
-                    bcd = decimal_para_bcd(decimal)
-
-                    limpar()
-                    print(f"O número de entrada na base [{base}] é {numero_entrada}\nSeu BCD é: {bcd}")
-
-                #Tratando erro na entrada do tipo de base.
-                else:
-                    print("Ocorreu um erro ao inserir o número da base de início, utilize apenas números, digitando exatamente o que estiver entre os colchetes.")
-
             #Tratando erro de entrada na variável "acao":
             else:
-                print("Ocorreu um erro ao inserir qual a ferramenta que deseja utilizar, tente novamente.")
+                creditos()
+                print("\n-------------------  ERROR ----------------------")
+                print("    Por favor, siga de acordo com o tutorial")
+                print( "---------------------------------------------------\n")
             #Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar o conversor, ou True caso queira continuar utilizando-o.
-            continuar = input("Deseja continuar convertendo? \n[s]im [n]ao: ").lower().strip().startswith("s")
+            continuar = input("\n---------------------------------------------------\
+                    \n\tDeseja continuar convertendo?\
+                    \n\t         [S]im [N]ao: ").lower().strip().startswith("s")
+            
             if continuar == False:
                 conversor = False
-                limpar()
+                creditos()
+
+    #Tratando erro de entrada na variável "ferramenta":        
+    else:
+        creditos()
+        print("\n-------------------  ERROR ----------------------")
+        print("    Por favor, siga de acordo com o tutorial")
+        print( "---------------------------------------------------\n")
 
     #Decisão do usuário alterando a variável "continuar" para: False caso queira parar de usar o algoritmo, ou True caso queira continuar utilizando-o.
-    continuar = input("Deseja continuar utlizando o algoritmo?\n [S]im [N]ao: ").strip().lower().startswith("s")
+    continuar = input("\n---------------------------------------------------\
+                    \n\tDeseja continuar utlizando o algoritmo?\
+                    \n\t         [S]im [N]ao: ").lower().strip().startswith("s")
+    creditos()
     if continuar == False:
         algoritmo = False
+        creditos()
