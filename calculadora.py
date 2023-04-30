@@ -35,20 +35,17 @@ def limpar():
 #Responsável por mostrar créditos do autor.
 def creditos():
     limpar()
-    
-    #Antes de escolher qual ferramenta utilizar.
+
     if algoritmo == False:
         print("\n------------------- MUITO OBRIGADO -------------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
         print( "------------------------ FIM -------------------------\n")
-    
-    #Utilizando o Conversor.
+
     elif conversor == True:
         print("\n-------------- CONVERSOR DE BASES -----------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
         print( "---------------------------------------------------\n")
-    
-    #Utilizando a Calculadora.
+
     elif calculadora == True:
         print("\n------------------- CALCULADORA -------------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
@@ -145,68 +142,21 @@ def operacao_2num(numero_1):
             i+=1
 
 #Conversor de bases:
-#Responsável por converter Decimal -> Binário.            
-def decimal_para_binario(decimal):
-    binario = ""
-    while decimal > 0:
-        if decimal % 2 == 1:
-            binario = "1" + binario
-            
-        else:
-            binario = "0" + binario
-            
-        decimal //= 2
-        
-    return binario
-
-#Responsável por converter Decimal -> Octal.
-def decimal_para_octal(decimal):
-    octal = ""
+#Responsável por converter Decimal -> Qualquer Base. (Inspirado pelo poderoso Said.)            
+def decimal_para_bases(decimal,base):
+    digitos = (
+        "0123456789ABCDEF" if base == 16
+        else "01234567" if base == 8
+        else "01"
+    )
+    numero_convertido = ""
 
     while decimal > 0:
-        if decimal % 8 != 0:
-            octal = str(decimal % 8) + octal
+        resto = decimal % base
+        numero_convertido = digitos[resto] + numero_convertido
+        decimal //= base
 
-        else:
-            octal = "0" + octal
-
-        decimal //= 8
-
-    return octal
-
-#Responsável por converter Decimal -> Hexadecimal.
-def decimal_para_hexadecimal(decimal):
-    hexadecimal = ""
-
-    while decimal > 0:
-        if decimal % 16 == 15:
-            hexadecimal = "F" + hexadecimal
-
-        elif decimal % 16 == 14:
-            hexadecimal = "E" + hexadecimal
-
-        elif decimal % 16 == 13:
-            hexadecimal = "D" + hexadecimal
-
-        elif decimal % 16 == 12:
-            hexadecimal = "C" + hexadecimal
-
-        elif decimal % 16 == 11:
-            hexadecimal = "B" + hexadecimal
-
-        elif decimal % 16 == 10:
-            hexadecimal = "A" + hexadecimal
-
-        else:
-            if decimal % 16 != 0:
-                hexadecimal = str(decimal % 16) + hexadecimal
-
-            else:
-                hexadecimal = "0" + hexadecimal
-
-        decimal //= 16
-
-    return hexadecimal
+    return numero_convertido
 
 #Responsável por converter Binário -> Decimal.
 def binario_para_decimal(binario):
@@ -311,7 +261,7 @@ def decimal_para_bcd(decimal):
     bcd = ""
     decimal = str(decimal)
     for i in range(len(decimal)):
-        bcd = "0"*(4-i) + decimal_para_binario(int(decimal[i])) + bcd
+        bcd = "0"*(4-i) + decimal_para_bases(int(decimal[i]),2) + bcd
     bcd = bcd[::-1]
     return bcd
 
@@ -347,7 +297,7 @@ texto_tutorial = f'-------------- POSSÍVEIS OPERAÇÕES ----------------- \
                 \n1.1.Digite APENAS números reais na base decimal.\
                 \n1.2.Utilize o "." para definir parte racional\n\
                 \n2.No conversor:\
-                \n2.1.Digite apenas números na base selecionada.\
+                \n2.1.Digite apenas números positivos na base selecionada.\
                 \n---------------------------------------------------\n'
 creditos()
 tutorial= input("Deseja ver o tutorial de como utilizar o algoritmo?\n\t         [S]im [N]ao: ").strip().lower().startswith('s')
@@ -449,12 +399,19 @@ while algoritmo is True:
                         numero_entrada = input("Insira o número na base decimal:\n")
 
                         decimal = int(numero_entrada)
-                        binario = decimal_para_binario(decimal)
-                        octal = decimal_para_octal(decimal)
-                        hexadecimal = decimal_para_hexadecimal(decimal)
+                        if decimal < 0:
+                            creditos()
+                            print("\n-------------------  ERROR ----------------------")
+                            print("    Por favor, siga de acordo com o tutorial")
+                            print( "---------------------------------------------------\n")
 
-                        creditos()
-                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                        else:
+                            binario = decimal_para_bases(decimal,2)
+                            octal = decimal_para_bases(decimal,8)
+                            hexadecimal = decimal_para_bases(decimal,16)
+
+                            creditos()
+                            print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
                         
                     #Entrada em base Binária.
                     elif base == 2:
@@ -464,8 +421,8 @@ while algoritmo is True:
                         numero_entrada = tira_0_esquerda(numero_entrada)
                         binario = numero_entrada
                         decimal = int(binario_para_decimal(binario))
-                        octal = decimal_para_octal(decimal)
-                        hexadecimal = decimal_para_hexadecimal(decimal)
+                        octal = decimal_para_bases(decimal,8)
+                        hexadecimal = decimal_para_bases(decimal,16)
 
                         creditos()
                         print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
@@ -478,8 +435,8 @@ while algoritmo is True:
                         numero_entrada = tira_0_esquerda(numero_entrada)
                         octal = numero_entrada
                         decimal = int(octal_para_decimal(octal))
-                        binario = decimal_para_binario(decimal)
-                        hexadecimal=decimal_para_hexadecimal(decimal)
+                        binario = decimal_para_bases(decimal,2)
+                        hexadecimal = decimal_para_bases(decimal,16)
 
                         creditos()
                         print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
@@ -492,8 +449,8 @@ while algoritmo is True:
                         numero_entrada = tira_0_esquerda(numero_entrada)
                         hexadecimal = numero_entrada
                         decimal = int(hexadecimal_para_decimal(hexadecimal))
-                        binario = decimal_para_binario(decimal)
-                        octal = decimal_para_octal(decimal)
+                        binario = decimal_para_bases(decimal,2)
+                        octal = decimal_para_bases(decimal,8)
 
                         creditos()
                         print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
@@ -526,7 +483,7 @@ while algoritmo is True:
                         numero_entrada = input("Insira o número na base decimal:\n")
 
                         decimal = int(numero_entrada)
-                        binario = decimal_para_binario(decimal)
+                        binario = decimal_para_bases(decimal,2)
                         bcd = decimal_para_bcd(decimal)
                         gray = binario_para_gray(binario)
                         complementar_1 = binario_para_complementar_1(binario)
@@ -567,7 +524,7 @@ while algoritmo is True:
                         numero_entrada = tira_0_esquerda(numero_entrada)
                         octal = numero_entrada
                         decimal = int(octal_para_decimal(octal))
-                        binario = decimal_para_binario(decimal)
+                        binario = decimal_para_bases(decimal,2)
                         bcd = decimal_para_bcd(decimal)
                         gray = binario_para_gray(binario)
                         complementar_1 = binario_para_complementar_1(binario)
@@ -588,7 +545,7 @@ while algoritmo is True:
                         numero_entrada = tira_0_esquerda(numero_entrada)
                         hexadecimal = numero_entrada
                         decimal = int(hexadecimal_para_decimal(hexadecimal))
-                        binario = decimal_para_binario(decimal)
+                        binario = decimal_para_bases(decimal,2)
                         bcd = decimal_para_bcd(decimal)
                         gray = binario_para_gray(binario)
                         complementar_1 = binario_para_complementar_1(binario)
