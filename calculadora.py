@@ -4,8 +4,8 @@ from math import tan, sin, cos, radians ; from os import name, system
 #DECLARANDO VARIÁVEIS:
 #Booleanos usados nos loops.
 algoritmo = True ; conversor = False ; calculadora = False ; complementando = False
-#Variável usada para selecionar a ferramenta.
-ferramenta = ""
+#Variável usada para selecionar o que fazer.
+ferramenta = "" ; acao = "" ; famosas = ""
 
 #Calculadora:
 #Lista com operadores que necessitam apenas de 1 número.
@@ -18,9 +18,10 @@ numero_1 = 0 ; numero_2 = 0 ; operador = ''
 #Conversor:
 #Lista com bases que são aceitas.
 TIPOS_DE_BASE = 2,8,10,16
-#Inicializando bases
+#Variáveis para as conversões de bases.
+digitos = ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") ; numero_convertido = ""
+#Inicializando bases.
 binario = "" ; octal = "" ; decimal = "" ; hexadecimal = "" ; gray = "" ; complementar_1 = "" ; complementar_2 = "" ; bcd = ""
-
 
 #DECLARANDO FUNÇÕES:
 #Responsável por limpar o terminal.
@@ -55,6 +56,12 @@ def creditos():
         print("\n-------------- BEM VINDO AO PROGRAMA --------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
         print( "---------------------------------------------------\n")
+
+def erro():
+    creditos()
+    print("\n-------------------  ERROR ----------------------")
+    print("    Por favor, siga de acordo com o tutorial")
+    print( "---------------------------------------------------\n")
 
 #Calculadora:
 #Responsável por realizar as operações com 1 número.
@@ -144,11 +151,6 @@ def operacao_2num(numero_1):
 #Conversor de bases:
 #Responsável por converter Decimal -> Qualquer Base. (Inspirado pelo poderoso Said.)            
 def decimal_para_bases(decimal,base):
-    digitos = (
-        "0123456789ABCDEF" if base == 16
-        else "01234567" if base == 8
-        else "01"
-    )
     numero_convertido = ""
 
     while decimal > 0:
@@ -298,6 +300,7 @@ texto_tutorial = f'-------------- POSSÍVEIS OPERAÇÕES ----------------- \
                 \n1.2.Utilize o "." para definir parte racional\n\
                 \n2.No conversor:\
                 \n2.1.Digite apenas números positivos na base selecionada.\
+                \n2.2.A base mínima é 2 e a base máxima é 35.\
                 \n---------------------------------------------------\n'
 creditos()
 tutorial= input("Deseja ver o tutorial de como utilizar o algoritmo?\n\t         [S]im [N]ao: ").strip().lower().startswith('s')
@@ -346,17 +349,11 @@ while algoritmo is True:
                 
                 #Operador considerado inválido.
                 else:
-                    creditos()
-                    print("\n-------------------  ERROR ----------------------")
-                    print("    Por favor, siga de acordo com o tutorial")
-                    print( "---------------------------------------------------\n")
+                    erro()
 
             #Tratando possível erro na entrada da variável "numero_1".
             except ValueError:
-                creditos()
-                print("\n-------------------  ERROR ----------------------")
-                print("    Por favor, siga de acordo com o tutorial")
-                print( "---------------------------------------------------\n")
+                erro()
                 
             #Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar a calculadora, ou True caso queira continuar utilizando-a.
             continuar =  input("\n---------------------------------------------------\
@@ -385,89 +382,181 @@ while algoritmo is True:
 
             #Conversor de bases:
             if acao == "a":
-                try:
-                    creditos()
-
-                    #Recebendo qual a base do número a ser convertido:
-                    base = int(input("Insira qual o número da base de entrada.\
+                creditos()
+                famosas = input("\tPara qual(is) base(s) converter?\
                     \n---------------------------------------------------\
-                    \n[2] [8] [10] [16]: "))
-
-                    #Entrada em base Decimal.
-                    if base == 10:
+                    \n\t   [A]Famosas [B]Específica\n").strip().lower()
+                try:
+                    #Convertendo para as bases famosas:
+                    if famosas.startswith("a"):
                         creditos()
-                        numero_entrada = input("Insira o número na base decimal:\n")
 
-                        decimal = int(numero_entrada)
-                        if decimal < 0:
+                        #Recebendo qual a base do número a ser convertido:
+                        base = int(input("Insira qual o número da base de entrada.\
+                        \n---------------------------------------------------\
+                        \n[2] [8] [10] [16]: "))
+
+                        #Entrada em base Decimal.
+                        if base == 10:
                             creditos()
-                            print("\n-------------------  ERROR ----------------------")
-                            print("    Por favor, siga de acordo com o tutorial")
-                            print( "---------------------------------------------------\n")
+                            numero_entrada = input("Insira o número na base decimal:\n")
 
-                        else:
-                            binario = decimal_para_bases(decimal,2)
+                            decimal = int(numero_entrada)
+                            if decimal < 0:
+                                erro()
+
+                            else:
+                                binario = decimal_para_bases(decimal,2)
+                                octal = decimal_para_bases(decimal,8)
+                                hexadecimal = decimal_para_bases(decimal,16)
+
+                                creditos()
+                                print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                            
+                        #Entrada em base Binária.
+                        elif base == 2:
+                            creditos()
+                            numero_entrada = input("Insira o número na base binaria:\n")
+
+                            numero_entrada = tira_0_esquerda(numero_entrada)
+                            binario = numero_entrada
+                            decimal = int(binario_para_decimal(binario))
                             octal = decimal_para_bases(decimal,8)
                             hexadecimal = decimal_para_bases(decimal,16)
 
                             creditos()
                             print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+
+                        #Entrada em base Octal.
+                        elif base == 8:
+                            creditos()
+                            numero_entrada = input("Insira o número na base octal: \n")
+
+                            numero_entrada = tira_0_esquerda(numero_entrada)
+                            octal = numero_entrada
+                            decimal = int(octal_para_decimal(octal))
+                            binario = decimal_para_bases(decimal,2)
+                            hexadecimal = decimal_para_bases(decimal,16)
+
+                            creditos()
+                            print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
                         
-                    #Entrada em base Binária.
-                    elif base == 2:
+                        #Entrada em base Hexadecimal.
+                        elif base == 16:
+                            creditos()
+                            numero_entrada = input("Insira o número na base hexadecimal: \n").title()
+
+                            numero_entrada = tira_0_esquerda(numero_entrada)
+                            hexadecimal = numero_entrada
+                            decimal = int(hexadecimal_para_decimal(hexadecimal))
+                            binario = decimal_para_bases(decimal,2)
+                            octal = decimal_para_bases(decimal,8)
+
+                            creditos()
+                            print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                        
+                        #Tratando erro na entrada do tipo de base.
+                        else:
+                            erro()
+                    #Convertendo para qualquer base(de 2 a 35)
+                    elif famosas.startswith("b"):
+                        #Recebendo qual a base do número a ser convertido:
                         creditos()
-                        numero_entrada = input("Insira o número na base binaria:\n")
+                        base = int(input("Insira qual o número da base de entrada.\
+                        \n---------------------------------------------------\
+                        \n[2] [8] [10] [16]: "))
 
-                        numero_entrada = tira_0_esquerda(numero_entrada)
-                        binario = numero_entrada
-                        decimal = int(binario_para_decimal(binario))
-                        octal = decimal_para_bases(decimal,8)
-                        hexadecimal = decimal_para_bases(decimal,16)
+                        #Entrada em base Decimal.
+                        if base == 10:
+                            creditos()
+                            numero_entrada = input("Insira o número na base decimal:\n")
 
-                        creditos()
-                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                            decimal = int(numero_entrada)
 
-                    #Entrada em base Octal.
-                    elif base == 8:
-                        creditos()
-                        numero_entrada = input("Insira o número na base octal: \n")
+                            if decimal < 0:
+                                erro()
 
-                        numero_entrada = tira_0_esquerda(numero_entrada)
-                        octal = numero_entrada
-                        decimal = int(octal_para_decimal(octal))
-                        binario = decimal_para_bases(decimal,2)
-                        hexadecimal = decimal_para_bases(decimal,16)
+                            else:
+                                creditos()
+                                base = int(input("Digite o número da base desejada: "))
 
-                        creditos()
-                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
-                    
-                    #Entrada em base Hexadecimal.
-                    elif base == 16:
-                        creditos()
-                        numero_entrada = input("Insira o número na base hexadecimal: \n").title()
+                                if base >= 36 or base <2:
+                                    erro()
+                                    
+                                else:
+                                    numero_convertido = decimal_para_bases(decimal,base)
+                                    creditos()
+                                    print(f"O decimal {decimal} na base {base} é: {numero_convertido}")
+                            
+                        #Entrada em base Binária.
+                        elif base == 2:
+                            creditos()
+                            numero_entrada = input("Insira o número na base binária:\n")
 
-                        numero_entrada = tira_0_esquerda(numero_entrada)
-                        hexadecimal = numero_entrada
-                        decimal = int(hexadecimal_para_decimal(hexadecimal))
-                        binario = decimal_para_bases(decimal,2)
-                        octal = decimal_para_bases(decimal,8)
+                            numero_entrada = tira_0_esquerda(numero_entrada)
+                            binario = numero_entrada
+                            decimal = int(binario_para_decimal(binario))
+                            
+                            creditos()
+                            base = int(input("Digite o número da base desejada: "))
 
-                        creditos()
-                        print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
-                    
-                    #Tratando erro na entrada do tipo de base.
+                            if base >= 36 or base <2:
+                                erro()
+                                
+                            else:
+                                numero_convertido = decimal_para_bases(decimal,base)
+                                creditos()
+                                print(f"O binário {binario} na base {base} é: {numero_convertido}")
+
+                        #Entrada em base Octal.
+                        elif base == 8:
+                            creditos()
+                            numero_entrada = input("Insira o número na base octal: \n")
+
+                            numero_entrada = tira_0_esquerda(numero_entrada)
+                            octal = numero_entrada
+                            decimal = int(octal_para_decimal(octal))
+
+                            creditos()
+                            base = int(input("Digite o número da base desejada: "))
+
+                            if base >= 36 or base <2:
+                                erro()
+                                
+                            else:
+                                numero_convertido = decimal_para_bases(decimal,base)
+                                creditos()
+                                print(f"O octal {octal} na base {base} é: {numero_convertido}")
+                        
+                        #Entrada em base Hexadecimal.
+                        elif base == 16:
+                            creditos()
+                            numero_entrada = input("Insira o número na base hexadecimal: \n").title()
+
+                            numero_entrada = tira_0_esquerda(numero_entrada)
+                            hexadecimal = numero_entrada
+                            decimal = int(hexadecimal_para_decimal(hexadecimal))
+                            
+                            creditos()
+                            base = int(input("Digite o número da base desejada: "))
+
+                            if base >= 36 or base <2:
+                                erro()
+                                
+                            else:
+                                numero_convertido = decimal_para_bases(decimal,base)
+                                creditos()
+                                print(f"O hexadecimal {hexadecimal} na base {base} é: {numero_convertido}")
+                        
+                        #Tratando erro na entrada do tipo de base.
+                        else:
+                            erro()
+
                     else:
-                        creditos()
-                        print("\n-------------------  ERROR ----------------------")
-                        print("    Por favor, siga de acordo com o tutorial")
-                        print( "---------------------------------------------------\n")
-
+                        erro()
                 #Tratando erro na entrada do número de entrada.
                 except ValueError:
-                    creditos()
-                    print("\n-------------------  ERROR ----------------------")
-                    print("    Por favor, siga de acordo com o tutorial")
-                    print( "---------------------------------------------------\n")
+                    erro()
 
             #Conversor para BCD, C1, C2 e Gray:
             elif acao == "b":
@@ -481,21 +570,23 @@ while algoritmo is True:
                     if base == 10:
                         creditos()
                         numero_entrada = input("Insira o número na base decimal:\n")
+                        if decimal < 0:
+                                erro()
+                        else:
+                            decimal = int(numero_entrada)
+                            binario = decimal_para_bases(decimal,2)
+                            bcd = decimal_para_bcd(decimal)
+                            gray = binario_para_gray(binario)
+                            complementar_1 = binario_para_complementar_1(binario)
+                            complementar_2 = complementar_1_para_complementar_2(complementar_1)
 
-                        decimal = int(numero_entrada)
-                        binario = decimal_para_bases(decimal,2)
-                        bcd = decimal_para_bcd(decimal)
-                        gray = binario_para_gray(binario)
-                        complementar_1 = binario_para_complementar_1(binario)
-                        complementar_2 = complementar_1_para_complementar_2(complementar_1)
-
-                        creditos()
-                        print(f"O número de entrada na base [{base}] é {numero_entrada}.\
-                            \n\tSeu BCD é: {bcd}\
-                            \n\tSeu C1 é: {complementar_1}\
-                            \n\tSeu C2 é: {complementar_2}\
-                            \n\tSeu Gray é: {gray}")
-                        
+                            creditos()
+                            print(f"O número de entrada na base [{base}] é {numero_entrada}.\
+                                \n\tSeu BCD é: {bcd}\
+                                \n\tSeu C1 é: {complementar_1}\
+                                \n\tSeu C2 é: {complementar_2}\
+                                \n\tSeu Gray é: {gray}")
+                            
                     #Entrada em base Binária.
                     elif base == 2:
                         creditos()
@@ -560,24 +651,16 @@ while algoritmo is True:
                         
                     #Tratando erro na entrada do tipo de base.
                     else:
-                        creditos()
-                        print("\n-------------------  ERROR ----------------------")
-                        print("    Por favor, siga de acordo com o tutorial")
-                        print( "---------------------------------------------------\n")
+                        erro()
 
                 #Tratando problema no número da entrada.        
                 except ValueError:
-                    creditos()
-                    print("\n-------------------  ERROR ----------------------")
-                    print("    Por favor, siga de acordo com o tutorial")
-                    print( "---------------------------------------------------\n")
+                    erro()
                     
             #Tratando erro de entrada na variável "acao":
             else:
-                creditos()
-                print("\n-------------------  ERROR ----------------------")
-                print("    Por favor, siga de acordo com o tutorial")
-                print( "---------------------------------------------------\n")
+                erro()
+
             #Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar o conversor, ou True caso queira continuar utilizando-o.
             continuar = input("\n---------------------------------------------------\
                     \n\tDeseja continuar convertendo?\
@@ -589,10 +672,7 @@ while algoritmo is True:
 
     #Tratando erro de entrada na variável "ferramenta":        
     else:
-        creditos()
-        print("\n-------------------  ERROR ----------------------")
-        print("    Por favor, siga de acordo com o tutorial")
-        print( "---------------------------------------------------\n")
+        erro()
 
     #Decisão do usuário alterando a variável "continuar" para: False caso queira parar de usar o algoritmo, ou True caso queira continuar utilizando-o.
     continuar = input("\n---------------------------------------------------\
