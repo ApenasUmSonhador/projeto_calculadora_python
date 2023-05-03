@@ -232,9 +232,10 @@ def complementar_1_para_complementar_2(complementar_1):
 def decimal_para_bcd(decimal):
     bcd = ""
     decimal = str(decimal)
+    decimal = decimal[::-1]
     for i in range(len(decimal)):
-        bcd = "0"*(4-i) + decimal_para_qualquer(int(decimal[i]),2) + bcd
-    bcd = bcd[::-1]
+        adicao = decimal_para_qualquer(int(decimal[i]),2) 
+        bcd = "0"*(4-len(adicao)) + adicao + bcd
     return bcd
 
 #Responsável por tirar os zeros à esquerda.
@@ -245,7 +246,6 @@ def tira_0_esquerda(numero):
             numero_tratado = ""
             for u in range(i,len(numero)):
                 numero_tratado += numero[u]
-
         else:
             return numero_tratado
 
@@ -474,7 +474,7 @@ while algoritmo is True:
                     if base == 10:
                         creditos()
                         numero_entrada = input("Insira o número na base decimal:\n")
-
+                        decimal = int(numero_entrada)
                         #Tratando possível erro para negativos.
                         if decimal < 0:
                                 erro()
