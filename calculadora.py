@@ -1,203 +1,221 @@
-#Importando bilbliotecas:
-from math import tan, sin, cos, radians ; from os import name, system
+# Importando bilbliotecas:
+from math import tan, sin, cos, radians
+from os import name, system
 
-#DECLARANDO VARIÁVEIS:
-#Booleanos usados nos loops.
-algoritmo = True ; conversor = False ; calculadora = False ; complementando = False
-#Variável usada para selecionar o que fazer.
-ferramenta = "" ; acao = "" ; famosas = ""
+# DECLARANDO VARIÁVEIS:
+# Booleanos usados nos loops.
+algoritmo = True
+conversor = False
+calculadora = False
+complementando = False
+# Variável de decisão.
+decisao = ""
 
-#Calculadora:
-#Lista com operadores que necessitam apenas de 1 número.
-OPERADORES_1NUM = '!','sen', 'cos', 'tg', 'cossec', 'sec', 'cotg'
-#Lista com operadores que necessitam de 2 números.
-OPERADORES_2NUM = '+', '-','/','*','%','^','raiz', 'hiper'
-#Inicializando números e operador.
-numero_1 = 0 ; numero_2 = 0 ; operador = "" 
+# CALCULADORA:
+# Tuplas de operadores.
+OPERADORES_1NUM = "!", "sen", "cos", "tg", "cossec", "sec", "cotg"
+OPERADORES_2NUM = "+", "-", "/", "*", "%", "^", "raiz", "hiper"
+# Inicializando números e operador.
+numero_1 = 0
+numero_2 = 0
+operador = ""
 
-#Conversor:
-#Constante com bases que são aceitas.
-TIPOS_DE_BASE = 2,8,10,16
-#Constante com algarísmos possivéis.
-DIGITOS = ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") 
-#Inicializando variáveis.
-binario = "" ; octal = "" ; decimal = "" ; hexadecimal = "" ; gray = "" ; complementar_1 = "" ; complementar_2 = "" ; bcd = ""; numero_convertido = ""
+# CONVERSOR:
+# Constante com bases que são aceitas.
+TIPOS_DE_BASE = 2, 8, 10, 16
+DIGITOS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# Definindo variáveis.
+binario = ""
+octal = ""
+decimal = ""
+hexadecimal = ""
 
-#DECLARANDO FUNÇÕES:
-#Responsável por limpar o terminal.
+
+# DECLARANDO FUNÇÕES:
+# Responsável por limpar o terminal.
 def limpar():
-    #Conferindo qual o tipo de sistema operacional:
-    #Windows
+    # Windows
     if name == "nt":
-        system('cls')
+        system("cls")
 
-    #Linux
+    # Outros
     else:
-        system('clear')
+        system("clear")
 
-#Responsável por mostrar créditos do autor.
+
+# Responsável por mostrar créditos do autor.
 def creditos():
     limpar()
 
-    #No fim do programa:
+    # No final do algoritmo:
     if algoritmo == False:
         print("\n------------------- MUITO OBRIGADO -------------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
-        print( "------------------------ FIM -------------------------\n")
+        print("------------------------ FIM -------------------------\n")
 
-    #Dentro do conversor:
+    # Durante o conversor:
     elif conversor == True:
         print("\n-------------- CONVERSOR DE BASES -----------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
-        print( "---------------------------------------------------\n")
+        print("---------------------------------------------------\n")
 
-    #Dentro da calculadora:
+    # Durante a calculadora:
     elif calculadora == True:
         print("\n------------------- CALCULADORA -------------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
-        print( "---------------------------------------------------\n")
-    
-    #No início do programa:
+        print("---------------------------------------------------\n")
+
+    # No início do algoritmo:
     else:
         print("\n-------------- BEM VINDO AO PROGRAMA --------------")
         print("    Algoritmo por Arthur Vinicius Carneiro Nunes")
-        print( "---------------------------------------------------\n")
+        print("---------------------------------------------------\n")
 
-#Responsável por mostrar mensagem de erro.
+
+# Responsável por mostrar mensagem de erro.
 def erro():
     creditos()
     print("\n-------------------  ERROR ----------------------")
     print("    Por favor, siga de acordo com o tutorial")
-    print( "---------------------------------------------------\n")
+    print("---------------------------------------------------\n")
 
-#Calculadora:
-#Responsável por realizar as operações com 1 número.
+
+# CALCULADORA:
+# Responsável por realizar as operações com 1 número.
 def operacao_1num(numero_1):
-    if operador == '!':#Operação Fatorial.
+    # Operação fatorial.
+    if operador == "!":
         num_1 = int(numero_1)
         resultado = 1
-        
-        for i in range(num_1):
-            resultado *= (i+1)
-            
-        print(f'{num_1}! = {resultado}')
 
-    #Operações trigométricas:
+        for i in range(num_1):
+            resultado *= i + 1
+
+        print(f"{num_1}! = {resultado}")
+
+    # OPERAÇÕES TRIGONOMÉTRICAS:
     else:
         num_1 = float(numero_1)
         num_2 = radians(num_1)
 
-        #Operação Seno.
-        if operador =='sen':
-            print(f'sen({num_1}) = {sin(num_2)}')
-        
-        #Operação Cosseno.
-        elif operador =='cos':
-            print(f'cos({num_1}) = {cos(num_2)}')
-        
-        #Operação Tangente.
-        elif operador =='tg':
-            print(f'tg({num_1}) = {tan(num_2)}')
+        # Operação Seno.
+        if operador == "sen":
+            print(f"sen({num_1}) = {sin(num_2)}")
 
-        #Operação Secante.    
-        elif operador =='sec':
-            print(f'sec({num_1}) = {1/cos(num_2)}')
-                
-        #Operação Cossecante.
-        elif operador =='cossec':
-            print(f'cossec({num_1}) = {1/sin(num_2)}')
-            
-        #Operação Cotangente.
-        elif operador =='cotg':
-            print(f'cotg({num_1}) = {1/tan(num_2)}')
+        # Operação Cosseno.
+        elif operador == "cos":
+            print(f"cos({num_1}) = {cos(num_2)}")
 
-#Responsável por realizar as operações com 2 números.       
+        # Operação Tangente.
+        elif operador == "tg":
+            print(f"tg({num_1}) = {tan(num_2)}")
+
+        # Operação Secante.
+        elif operador == "sec":
+            print(f"sec({num_1}) = {1/cos(num_2)}")
+
+        # Operação Cossecante.
+        elif operador == "cossec":
+            print(f"cossec({num_1}) = {1/sin(num_2)}")
+
+        # Operação Cotangente.
+        elif operador == "cotg":
+            print(f"cotg({num_1}) = {1/tan(num_2)}")
+
+
+# Responsável por realizar as operações com 2 números.
 def operacao_2num(numero_1):
     numero_2 = input("Digite outro número: ").strip()
 
     num_1 = float(numero_1)
     num_2 = float(numero_2)
 
-    #Operação Soma.
-    if operador == '+':
-        print(f'{num_1} + {num_2} = {num_1 + num_2}')
+    # Operação Soma.
+    if operador == "+":
+        print(f"{num_1} + {num_2} = {num_1 + num_2}")
 
-    #Operação Subtração.
-    elif operador == '-':
-        print(f'{num_1} - {num_2} = {num_1 - num_2}')
+    # Operação Subtração.
+    elif operador == "-":
+        print(f"{num_1} - {num_2} = {num_1 - num_2}")
 
-    #Operação Multiplicação.
-    elif operador == '*':
-        print(f'{num_1} * {num_2} = {num_1 * num_2}')
+    # Operação Multiplicação.
+    elif operador == "*":
+        print(f"{num_1} * {num_2} = {num_1 * num_2}")
 
-    #Operação Divisão.
-    elif operador == '/':
-        print(f'{num_1} / {num_2} = {num_1 / num_2}')
+    # Operação Divisão.
+    elif operador == "/":
+        print(f"{num_1} / {num_2} = {num_1 / num_2}")
 
-    #Operação Potênciação.
-    elif operador == '^':
-        print(f'{num_1} ^ {num_2} = {num_1 ** num_2}')
+    # Operação Potênciação.
+    elif operador == "^":
+        print(f"{num_1} ^ {num_2} = {num_1 ** num_2}")
 
-    #Operação Modular.
-    elif operador == '%':
-        print(f'{num_1} % {num_2} = {num_1 % num_2}')
+    # Operação Modular.
+    elif operador == "%":
+        print(f"{num_1} % {num_2} = {num_1 % num_2}")
 
-    #Operação Radiciação.
-    elif operador == 'raiz':
-        print(f'A {num_2}ª raiz de {num_1} = {num_1 ** (1 / num_2)}')
-    
-    #Operação Tetração.
-    elif operador == 'hiper':
-        num_2= int(num_2)
+    # Operação Radiciação.
+    elif operador == "raiz":
+        print(f"A {num_2}ª raiz de {num_1} = {num_1 ** (1 / num_2)}")
+
+    # Operação Tetração.
+    elif operador == "hiper":
+        num_2 = int(num_2)
         indice = num_1
         i = 0
         while i < num_2:
-            num_1 = num_1 ** indice
-            print(f'{numero_1} hiper {num_2} = {num_1}')
+            num_1 = num_1**indice
+            print(f"{numero_1} hiper {num_2} = {num_1}")
             i += 1
 
-#Conversor de bases:
-#Responsável por converter Decimal -> Qualquer Base. (Inspirado por Said.)            
-def decimal_para_qualquer(decimal,base):
-    numero_convertido = ""
+
+# Conversor de bases:
+# Responsável por converter Decimal -> Qualquer Base.
+def decimal_para_qualquer(decimal, base):
+    convertido = ""
 
     while decimal > 0:
-        resto = decimal % base
-        numero_convertido = DIGITOS[resto] + numero_convertido
+        convertido = DIGITOS[decimal % base] + convertido
         decimal //= base
 
-    return numero_convertido
+    return convertido
 
-#Responsável por converter Qualquer Base -> Decimal.
-def qualquer_para_decimal(qualquer,base):
+
+# Responsável por converter Qualquer Base -> Decimal.
+def qualquer_para_decimal(entrada, base):
     decimal = 0
-    qualquer = qualquer[::-1]
+    entrada = entrada[::-1]
 
-    for i in range(len(qualquer)):
-            decimal += int(DIGITOS.index(qualquer[i])) * (base ** i)
+    for i in range(len(entrada)):
+        decimal += int(DIGITOS.index(entrada[i])) * (base**i)
 
     return decimal
 
-#Responsável por converter Binário -> Gray.
+
+# Responsável por converter Binário -> Gray.
 def binario_para_gray(binario):
     gray = binario[0]
 
-    for i in range(0,len(binario)-1):
-        if ((binario[i] == "1" or binario[i+1] == "1") and (not binario[i] == "1" or not binario[i+1] == "1")):
+    for i in range(0, len(binario) - 1):
+        if (binario[i] == "1" and not binario[i + 1] == "1") or (
+            not binario[i] == "1" and binario[i + 1] == "1"
+        ):
             gray = gray + "1"
 
         else:
             gray = gray + "0"
 
-        i+=1
+        i += 1
 
     return gray
 
-#Responsável por converter Binário -> Complementar 1.
+
+# Responsável por converter Binário -> Complementar 1.
 def binario_para_complementar_1(binario):
     complementar_1 = ""
-    for i in range(0,len(binario)):
-        if binario[i]=="1":
+
+    for i in range(0, len(binario)):
+        if binario[i] == "1":
             complementar_1 = complementar_1 + "0"
 
         else:
@@ -205,17 +223,18 @@ def binario_para_complementar_1(binario):
 
     return complementar_1
 
-#Responsável por converter Binário -> Complementar 2
+
+# Responsável por converter Binário -> Complementar 2
 def complementar_1_para_complementar_2(complementar_1):
     complementar_2 = ""
     complementar_1 = complementar_1[::-1]
     complementando = False
 
-    for i in range(0,len(complementar_1)):
+    for i in range(0, len(complementar_1)):
         if complementando == False:
-            if(complementar_1[i]=="1"):
+            if complementar_1[i] == "1":
                 complementar_2 = complementar_2 + "0"
-                if i == len(complementar_1)-1:
+                if i == len(complementar_1) - 1:
                     complementar_2 = complementar_2 + "1"
 
             else:
@@ -228,30 +247,35 @@ def complementar_1_para_complementar_2(complementar_1):
     complementar_2 = complementar_2[::-1]
     return complementar_2
 
-#Responsável por converter Decimal -> BCD.
+
+# Responsável por converter Decimal -> BCD.
 def decimal_para_bcd(decimal):
     bcd = ""
     decimal = str(decimal)
     decimal = decimal[::-1]
+
     for i in range(len(decimal)):
-        adicao = decimal_para_qualquer(int(decimal[i]),2) 
-        bcd = "0"*(4-len(adicao)) + adicao + bcd
+        adicao = decimal_para_qualquer(int(decimal[i]), 2)
+        bcd = "0" * (4 - len(adicao)) + adicao + bcd
+
     return bcd
 
-#Responsável por tirar os zeros à esquerda.
+
+# Responsável por tirar os zeros à esquerda.
 def tira_0_esquerda(numero):
     numero_tratado = numero
-    for i in range(0,len(numero)):
+    for i in range(0, len(numero)):
         if numero_tratado[0] == "0":
             numero_tratado = ""
-            for u in range(i,len(numero)):
+            for u in range(i, len(numero)):
                 numero_tratado += numero[u]
+
         else:
             return numero_tratado
 
 
-#Tutorial:
-tutorial = False 
+# Tutorial:
+tutorial = False
 texto_tutorial = f'-------------- POSSÍVEIS OPERAÇÕES ----------------- \
                 \n1.Calculadora:\
                 \n1.1.Operações de 1 número:\
@@ -275,8 +299,15 @@ texto_tutorial = f'-------------- POSSÍVEIS OPERAÇÕES ----------------- \
                 \n---------------------------------------------------\n'
 
 creditos()
-tutorial= input("Deseja ver o tutorial de como utilizar o algoritmo?\
-                \n\t         [S]im [N]ao: ").strip().lower().startswith('s')
+tutorial = (
+    input(
+        "Deseja ver o tutorial de como utilizar o algoritmo?\
+                \n\t         [S]im [N]ao: "
+    )
+    .strip()
+    .title()
+    .startswith("S")
+)
 
 if tutorial is True:
     creditos()
@@ -286,88 +317,117 @@ else:
     creditos()
 
 
-#Algoritmo:
+# ALGORITMO:
 while algoritmo is True:
-    ferramenta = input("\tQual programa deseja utilizar?\
+    decisao = (
+        input(
+            "\tQual programa deseja utilizar?\
                     \n---------------------------------------------------\
-                    \n      [A]Calculadora [B]Conversor de bases: ").strip().lower()
-    
-    #Calculadora:
-    if ferramenta.startswith("a"): 
+                    \n      [A]Calculadora [B]Conversor de bases: "
+        )
+        .strip()
+        .title()
+    )
+
+    # CALCULADORA:
+    if decisao.startswith("A"):
         calculadora = True
         conversor = False
-        
-        #Loop para caso o usuário queira continuar utilizando a Calculadora.
-        while calculadora is True:
-            #Reiniciando as variavéis:
-            numero_1 = 0 ; numero_2 = 0 ; operador = "" 
 
-            #Recebendo primeiro número.
+        # Loop para caso o usuário queira continuar utilizando a Calculadora.
+        while calculadora is True:
+            # Reiniciando as variavéis:
+            numero_1 = 0
+            numero_2 = 0
+            operador = ""
+
             creditos()
             numero_1 = input("Digite um número: ").strip()
-            
+
             try:
                 creditos()
                 operador = input("Digite um operador: ").strip().lower()
 
-                #Operações que dependem de apenas um número.
+                # Operações que dependem de apenas um número.
                 if operador in OPERADORES_1NUM:
                     creditos()
                     operacao_1num(numero_1)
 
-                #Operações que dependem de dois números.
+                # Operações que dependem de dois números.
                 elif operador in OPERADORES_2NUM:
                     creditos()
                     operacao_2num(numero_1)
-                
-                #Operador considerado inválido.
+
+                # Operador considerado inválido.
                 else:
                     erro()
 
-            #Tratando possível erro na entrada da variável "numero_1" ou "numero_2".
+            # Tratando possível ValueError na entrada da variável "numero_1" ou "numero_2".
             except ValueError:
                 erro()
-                
-            #Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar a calculadora, ou True caso queira continuar utilizando-a.
-            continuar =  input("\n---------------------------------------------------\
+
+            # Decisão do usuário deseja continuar no loop Calculadora.
+            continuar = (
+                input(
+                    "\n---------------------------------------------------\
                     \n    Deseja continuar utilizando a Calculadora?\
-                    \n\t         [S]im [N]ao: ").lower().strip().startswith("s")
-            
+                    \n\t         [S]im [N]ao: "
+                )
+                .title()
+                .strip()
+                .startswith("S")
+            )
+
             if continuar == False:
                 calculadora = False
                 creditos()
-            
-    #Conversor de Bases:
-    elif ferramenta.startswith("b"):
+
+    # CONVERSOR:
+    elif decisao.startswith("B"):
         conversor = True
         calculadora = False
-        
-        #Loop para caso o usuário queira continuar utilizando o Conversor.
+
+        # Loop para caso o usuário queira continuar utilizando o Conversor.
         while conversor is True:
-            #Reiniciando as variáveis:   
-            binario = "" ; octal = "" ; decimal = "" ; hexadecimal = "" ; gray = "" ; complementar_1 = "" ; complementar_2 = "" ; bcd = ""; numero_convertido = ""
+            # Reiniciando as variáveis:
+            binario = ""
+            octal = ""
+            decimal = ""
+            hexadecimal = ""
+
             creditos()
-
-            #Recebendo o que usuário deseja fazer:
-            acao = input("\tQual ferramenta deseja utilizar?\
+            decisao = (
+                input(
+                    "\tQual ferramenta deseja utilizar?\
                     \n---------------------------------------------------\
-                    \n[A]Conversor de bases [B]Complementares, Gray e BCD\n").strip().lower()
+                    \n[A]Conversor de bases [B]Complementares, Gray e BCD\n"
+                )
+                .strip()
+                .title()
+            )
 
-            #Conversor de bases:
-            if acao == "a":
+            # Conversor de bases:
+            if decisao == "A":
                 creditos()
-                famosas = input("\tPara qual(is) base(s) converter?\
+                decisao = (
+                    input(
+                        "\tPara qual(is) base(s) converter?\
                     \n---------------------------------------------------\
-                    \n\t   [A]Famosas [B]Específica\n").strip().lower()
+                    \n\t   [A]Famosas [B]Específica\n"
+                    )
+                    .strip()
+                    .title()
+                )
+
                 try:
-                    #Convertendo para as bases famosas:
-                    if famosas.startswith("a"):
+                    # Convertendo para as bases famosas:
+                    if decisao.startswith("A"):
                         creditos()
 
-                        #Recebendo qual a base do número a ser convertido:
+                        # Recebendo qual a base do número a ser convertido:
                         base = int(input("Insira qual o número da base de entrada: "))
 
-                        #Entrada em base Decimal.
+                        # Entrada em base Decimal.
                         if base == 10:
                             creditos()
                             numero_entrada = input("Insira o número na base decimal:\n")
@@ -377,45 +437,51 @@ while algoritmo is True:
                                 erro()
 
                             else:
-                                binario = decimal_para_qualquer(decimal,2)
-                                octal = decimal_para_qualquer(decimal,8)
-                                hexadecimal = decimal_para_qualquer(decimal,16)
+                                binario = decimal_para_qualquer(decimal, 2)
+                                octal = decimal_para_qualquer(decimal, 8)
+                                hexadecimal = decimal_para_qualquer(decimal, 16)
 
                                 creditos()
-                                print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
-                        
-                        #Entrada em base não Decimal.
+                                print(
+                                    f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}"
+                                )
+
+                        # Entrada em base não Decimal.
                         elif base > 1 and base < 37:
                             creditos()
                             numero_entrada = input(f"Insira o número na base {base}:\n")
                             numero_tratado = tira_0_esquerda(numero_entrada)
-                            decimal = qualquer_para_decimal(numero_tratado,base)
-                            binario = decimal_para_qualquer(decimal,2)
-                            octal = decimal_para_qualquer(decimal,8)
-                            hexadecimal = decimal_para_qualquer(decimal,16)
+                            decimal = qualquer_para_decimal(numero_tratado, base)
+                            binario = decimal_para_qualquer(decimal, 2)
+                            octal = decimal_para_qualquer(decimal, 8)
+                            hexadecimal = decimal_para_qualquer(decimal, 16)
 
                             creditos()
-                            print(f"O número fornecido na base {base} foi: {numero_tratado}")
-                            print(f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}")
+                            print(
+                                f"O número fornecido na base {base} foi: {numero_tratado}"
+                            )
+                            print(
+                                f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}"
+                            )
 
-                        #Tratando erro na entrada do tipo de base.
+                        # Tratando erro na entrada do tipo de base.
                         else:
                             erro()
 
-                    #Convertendo para qualquer base(de 2 a 36)
-                    elif famosas.startswith("b"):
-                        #Recebendo qual a base do número a ser convertido:
+                    # Convertendo para qualquer base(de 2 a 36)
+                    elif decisao.startswith("B"):
+                        # Recebendo qual a base do número a ser convertido:
                         creditos()
                         base = int(input("Insira qual o número da base de entrada: "))
 
-                        #Entrada em base Decimal.
+                        # Entrada em base Decimal.
                         if base == 10:
                             creditos()
                             numero_entrada = input("Insira o número na base decimal:\n")
 
                             decimal = int(numero_entrada)
 
-                            #Tratando possível erro para negativos.
+                            # Tratando possível erro para negativos.
                             if decimal < 0:
                                 erro()
 
@@ -423,125 +489,150 @@ while algoritmo is True:
                                 creditos()
                                 base = int(input("Digite o número da base desejada: "))
 
-                                if base > 36 or base <2:
+                                if base > 36 or base < 2:
                                     erro()
-                                    
+
                                 else:
-                                    numero_convertido = decimal_para_qualquer(decimal,base)
                                     creditos()
-                                    print(f"O decimal {decimal} na base {base} é: {numero_convertido}")
-                            
-                        #Entrada em base não Decimal.
-                        elif base > 1 and base <37:
+                                    print(
+                                        f"O decimal {decimal} na base {base} é: {decimal_para_qualquer(decimal,base)}"
+                                    )
+
+                        # Entrada em base não Decimal.
+                        elif base > 1 and base < 37:
                             creditos()
-                            numero_entrada = input(f"Digite o número na base {base}: ")
+                            numero_entrada = (
+                                input(f"Digite o número na base {base}: ")
+                                .strip()
+                                .title()
+                            )
                             numero_tratado = tira_0_esquerda(numero_entrada)
-                            decimal = qualquer_para_decimal(numero_tratado,base)
+                            decimal = qualquer_para_decimal(numero_tratado, base)
                             base_antiga = base
                             creditos()
 
                             base = int(input("Digite o número da base desejada: "))
 
-                            #Tratando possível erro para negativos.
-                            if base > 36 or base <2:
+                            # Tratando possível erro para negativos.
+                            if base > 36 or base < 2:
                                 erro()
-                                
-                            else:
-                                numero_convertido = decimal_para_qualquer(decimal,base)
-                                creditos()
-                                print(f"Na base {base_antiga} o número fornecido foi: {numero_tratado}")
-                                print(f"Ele na base {base} é: {numero_convertido}")
 
-                        #Tratando erro na entrada do tipo de base.
+                            else:
+                                creditos()
+                                print(
+                                    f"Na base {base_antiga} o número fornecido foi: {numero_tratado}"
+                                )
+                                print(
+                                    f"Ele na base {base} é: {decimal_para_qualquer(decimal, base)}"
+                                )
+
+                        # Tratando erro na entrada do tipo de base.
                         else:
                             erro()
 
                     else:
                         erro()
-                #Tratando erro na entrada do número de entrada.
+                # Tratando erro na entrada do número de entrada.
                 except ValueError:
                     erro()
 
-            #Conversor para BCD, C1, C2 e Gray:
-            elif acao == "b":
+            # Conversor para BCD, C1, C2 e Gray:
+            elif decisao == "B":
                 try:
                     creditos()
-                    base = int(input("Insira qual o número da base de entrada.\
+                    base = int(
+                        input(
+                            "Insira qual o número da base de entrada.\
                     \n---------------------------------------------------\
-                    \n[2] [8] [10] [16]: "))
+                    \n[2] [8] [10] [16]: "
+                        )
+                    )
 
-                    #Entrada em base Decimal.
+                    # Entrada em base Decimal.
                     if base == 10:
                         creditos()
                         numero_entrada = input("Insira o número na base decimal:\n")
-                        decimal = int(numero_entrada)
-                        #Tratando possível erro para negativos.
-                        if decimal < 0:
-                                erro()
-                        else:
+                        try:
                             decimal = int(numero_entrada)
-                            binario = decimal_para_qualquer(decimal,2)
-                            bcd = decimal_para_bcd(decimal)
-                            gray = binario_para_gray(binario)
-                            complementar_1 = binario_para_complementar_1(binario)
-                            complementar_2 = complementar_1_para_complementar_2(complementar_1)
+                            # Tratando possível erro para negativos.
+                            if decimal < 0:
+                                erro()
+                            else:
+                                decimal = int(numero_entrada)
+                                binario = decimal_para_qualquer(decimal, 2)
+                                creditos()
+                                print(
+                                    f"O número de entrada na base [{base}] é {numero_entrada}.\
+                                    \n\tSeu BCD é: {decimal_para_bcd(decimal)}\
+                                    \n\tSeu C1 é: {binario_para_complementar_1(binario)}\
+                                    \n\tSeu C2 é: {complementar_1_para_complementar_2(binario_para_complementar_1(binario))}\
+                                    \n\tSeu Gray é: {binario_para_gray(binario)}"
+                                )
+                        except ValueError:
+                            erro()
 
-                            creditos()
-                            print(f"O número de entrada na base [{base}] é {numero_entrada}.\
-                                \n\tSeu BCD é: {bcd}\
-                                \n\tSeu C1 é: {complementar_1}\
-                                \n\tSeu C2 é: {complementar_2}\
-                                \n\tSeu Gray é: {gray}")
-                            
-                    #Entrada em base não Decimal.
+                    # Entrada em base não Decimal.
                     elif base > 1 and base < 37:
                         creditos()
                         numero_entrada = input(f"Insira o número na base {base}: ")
 
-                        numero_tratado = tira_0_esquerda(numero_entrada)
-                        decimal = int(qualquer_para_decimal(numero_tratado,base))
-                        binario = decimal_para_qualquer(decimal,2)
-                        bcd = decimal_para_bcd(decimal)
-                        gray = binario_para_gray(binario)
-                        complementar_1 = binario_para_complementar_1(binario)
-                        complementar_2 = complementar_1_para_complementar_2(complementar_1)
+                        decimal = int(
+                            qualquer_para_decimal(tira_0_esquerda(numero_entrada), base)
+                        )
+                        binario = decimal_para_qualquer(decimal, 2)
 
                         creditos()
-                        print(f"O número fornecido na base {base} é {numero_entrada}.\
-                            \n\tSeu BCD é: {bcd}\
-                            \n\tSeu C1 é: {complementar_1}\
-                            \n\tSeu C2 é: {complementar_2}\
-                            \n\tSeu Gray é: {gray}")
+                        print(
+                            f"O número fornecido na base {base} é {numero_tratado}.\
+                            \n\tSeu BCD é: {decimal_para_bcd(decimal)}\
+                            \n\tSeu C1 é: {binario_para_complementar_1(binario)}\
+                            \n\tSeu C2 é: { complementar_1_para_complementar_2(binario_para_complementar_1(binario))}\
+                            \n\tSeu Gray é: {binario_para_gray(binario)}"
+                        )
 
-                    #Tratando erro na entrada do tipo de base.
+                    # Tratando erro na entrada do tipo de base.
                     else:
                         erro()
 
-                #Tratando problema no número da entrada.        
+                # Tratando problema no número da entrada.
                 except ValueError:
                     erro()
-                    
-            #Tratando erro de entrada na variável "acao":
+
+            # Tratando erro de entrada na variável "acao":
             else:
                 erro()
 
-            #Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar o conversor, ou True caso queira continuar utilizando-o.
-            continuar = input("\n---------------------------------------------------\
+            # Decisão do usuário alterando a variável "conversor" para: False caso queira parar de usar o conversor, ou True caso queira continuar utilizando-o.
+            continuar = (
+                input(
+                    "\n---------------------------------------------------\
                     \n\tDeseja continuar convertendo?\
-                    \n\t         [S]im [N]ao: ").lower().strip().startswith("s")
-            
+                    \n\t         [S]im [N]ao: "
+                )
+                .title()
+                .strip()
+                .startswith("S")
+            )
+
             if continuar == False:
                 conversor = False
                 creditos()
 
-    #Tratando erro de entrada na variável "ferramenta":        
+    # Tratando erro de entrada na variável "ferramenta":
     else:
         erro()
 
-    #Decisão do usuário alterando a variável "continuar" para: False caso queira parar de usar o algoritmo, ou True caso queira continuar utilizando-o.
-    continuar = input("\n---------------------------------------------------\
+    # Decisão do usuário alterando a variável "continuar" para: False caso queira parar de usar o algoritmo, ou True caso queira continuar utilizando-o.
+    continuar = (
+        input(
+            "\n---------------------------------------------------\
                     \n\tDeseja continuar utlizando o algoritmo?\
-                    \n\t         [S]im [N]ao: ").lower().strip().startswith("s")
+                    \n\t         [S]im [N]ao: "
+        )
+        .title()
+        .strip()
+        .startswith("S")
+    )
     creditos()
     if continuar == False:
         algoritmo = False
