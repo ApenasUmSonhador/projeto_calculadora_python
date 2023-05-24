@@ -7,7 +7,6 @@ from os import name, system
 algoritmo = True
 conversor = False
 calculadora = False
-complementando = False
 # Variável de decisão.
 decisao = ""
 
@@ -15,21 +14,11 @@ decisao = ""
 # Tuplas de operadores.
 OPERADORES_1NUM = "!", "sen", "cos", "tg", "cossec", "sec", "cotg"
 OPERADORES_2NUM = "+", "-", "/", "*", "%", "^", "raiz", "hiper"
-# Inicializando números e operador.
-numero_1 = 0
-numero_2 = 0
-operador = ""
 
 # CONVERSOR:
-# Constante com bases que são aceitas.
+# Tuplas com bases que são aceitas.
 TIPOS_DE_BASE = 2, 8, 10, 16
 DIGITOS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-# Definindo variáveis.
-binario = ""
-octal = ""
-decimal = ""
-hexadecimal = ""
-
 
 # DECLARANDO FUNÇÕES:
 # Responsável por limpar o terminal.
@@ -158,12 +147,11 @@ def operacao_2num(numero_1):
     elif operador == "raiz":
         print(f"A {num_2}ª raiz de {num_1} = {num_1 ** (1 / num_2)}")
 
-    # Operação Tetração.
+    # Operação Tetração (Por ora apenas aceita inteiros).
     elif operador == "hiper":
-        num_2 = int(num_2)
         indice = num_1
         i = 0
-        while i < num_2:
+        while i < int(num_2):
             num_1 = num_1**indice
             print(f"{numero_1} hiper {num_2} = {num_1}")
             i += 1
@@ -337,9 +325,7 @@ while algoritmo is True:
         # Loop para caso o usuário queira continuar utilizando a Calculadora.
         while calculadora is True:
             # Reiniciando as variavéis:
-            numero_1 = 0
             numero_2 = 0
-            operador = ""
 
             creditos()
             numero_1 = input("Digite um número: ").strip()
@@ -389,12 +375,6 @@ while algoritmo is True:
 
         # Loop para caso o usuário queira continuar utilizando o Conversor.
         while conversor is True:
-            # Reiniciando as variáveis:
-            binario = ""
-            octal = ""
-            decimal = ""
-            hexadecimal = ""
-
             creditos()
             decisao = (
                 input(
@@ -436,14 +416,13 @@ while algoritmo is True:
                             if decimal < 0:
                                 erro()
 
-                            else:
-                                binario = decimal_para_qualquer(decimal, 2)
-                                octal = decimal_para_qualquer(decimal, 8)
-                                hexadecimal = decimal_para_qualquer(decimal, 16)
-
+                            else:                                
                                 creditos()
                                 print(
-                                    f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}"
+                                    f"Em binário: {decimal_para_qualquer(decimal, 2)}\
+                                    \nEm octal: {decimal_para_qualquer(decimal, 8)}\
+                                    \nEm decimal: {decimal}\
+                                    \nEm hexadecimal: {decimal_para_qualquer(decimal, 16)}"
                                 )
 
                         # Entrada em base não Decimal.
@@ -452,17 +431,17 @@ while algoritmo is True:
                             numero_entrada = input(f"Insira o número na base {base}:\n")
                             numero_tratado = tira_0_esquerda(numero_entrada)
                             decimal = qualquer_para_decimal(numero_tratado, base)
-                            binario = decimal_para_qualquer(decimal, 2)
-                            octal = decimal_para_qualquer(decimal, 8)
-                            hexadecimal = decimal_para_qualquer(decimal, 16)
 
                             creditos()
                             print(
                                 f"O número fornecido na base {base} foi: {numero_tratado}"
                             )
                             print(
-                                f"Em binário: {binario}\nEm octal: {octal}\nEm decimal: {decimal}\nEm hexadecimal: {hexadecimal}"
-                            )
+                                    f"Em binário: {decimal_para_qualquer(decimal, 2)}\
+                                    \nEm octal: {decimal_para_qualquer(decimal, 8)}\
+                                    \nEm decimal: {decimal}\
+                                    \nEm hexadecimal: {decimal_para_qualquer(decimal, 16)}"
+                                )
 
                         # Tratando erro na entrada do tipo de base.
                         else:
